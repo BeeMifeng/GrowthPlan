@@ -7,7 +7,11 @@
 //
 
 #import "AppDelegate.h"
-
+#import "GPBarController.h"
+#import "GPNaviController.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#import "LoginController.h"
+#import "MCFileManager.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +21,30 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+//    self.window.rootViewController = [[GPBarController alloc]init];
+    
+//    NSLog(@"%@",[MCFileManager cacheDirectory]);
+    
+    self.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[LoginController new]];
+    
+    IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager]; // 获取类库的单例变量
+    
+    keyboardManager.enable = YES; // 控制整个功能是否启用
+    
+    keyboardManager.shouldResignOnTouchOutside = YES; // 控制点击背景是否收起键盘
+    
+    keyboardManager.shouldToolbarUsesTextFieldTintColor = YES; // 控制键盘上的工具条文字颜色是否用户自定义
+    
+    keyboardManager.toolbarManageBehaviour = IQAutoToolbarBySubviews; // 有多个输入框时，可以通过点击Toolbar 上的“前一个”“后一个”按钮来实现移动到不同的输入框
+    
+    keyboardManager.enableAutoToolbar = YES; // 控制是否显示键盘上的工具条
+    
+    
+    keyboardManager.placeholderFont = [UIFont boldSystemFontOfSize:17]; // 设置占位文字的字体
+    
+    keyboardManager.keyboardDistanceFromTextField = 10.0f; // 输入框距离键盘的距离
+    
     return YES;
 }
 
@@ -30,16 +58,19 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"applicationDidEnterBackground" object:nil];
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"applicationDidBecomeActive" object:nil];
 }
 
 

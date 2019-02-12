@@ -1,0 +1,39 @@
+{
+  "MenuList":[
+    {
+      "menuImgName": "set",
+      "menuName": "设置",
+      "nextImgName": "next"
+    },
+    {
+        "menuImgName": "buy_history",
+        "menuName": "购买记录",
+        "nextImgName": "next"
+    },
+    {
+        "menuImgName": "contact_us",
+        "menuName": "联系我们",
+        "nextImgName": "next"
+    },
+    {
+        "menuImgName": "about_us",
+        "menuName": "关于我们",
+        "nextImgName": "next"
+    },
+    {
+        "menuImgName": "update",
+        "menuName": "版本更新",
+        "nextImgName": "next"
+    },
+    {
+        "menuImgName": "change_psw",
+        "menuName": "密码修改",
+        "nextImgName": "next"
+    },
+    {
+        "menuImgName": "login_out",
+        "menuName": "退出登录",
+        "nextImgName": "next"
+    }
+  ]
+}
