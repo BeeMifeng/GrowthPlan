@@ -55,15 +55,12 @@
  *  从Plist文件中读取字典
  */
 +(NSDictionary*)dictionaryInPlistFileOfPath:(NSString*)path{
-    //判断文件是否存在
-    if ([self fileExistInPath:path isDirectory:nil]) {
-        //文件存在
+
         //读取文件
-        NSDictionary* dict = [[NSDictionary alloc] initWithContentsOfFile:path];
-        //判断读取到的dict实例是否有效
-        if (dict && [dict isKindOfClass:[NSDictionary class]]) {
-            return dict;
-        }
+    NSDictionary* dict = [[NSDictionary alloc] initWithContentsOfFile:path];
+    //判断读取到的dict实例是否有效
+    if (dict && [dict isKindOfClass:[NSDictionary class]]) {
+        return dict;
     }
     return nil;
 }

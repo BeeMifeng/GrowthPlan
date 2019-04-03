@@ -12,4 +12,6 @@ target 'GrowthPlan' do
   pod 'IQKeyboardManager', '~> 6.1.1'
   pod 'SVProgressHUD', '~> 2.2.5'
   pod 'AFNetworking', '~> 3.2.1'
+  pod 'MJRefresh', '~> 3.1.16'
+  pod 'SDWebImage', '~> 4.4.6'
 end

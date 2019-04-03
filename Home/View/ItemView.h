@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ItemView : UIView
+@property(nonatomic,strong)UIImageView *imageView;
+@property(nonatomic,strong)UILabel *label;
+
 - (instancetype)initWithImageName:(NSString*)imageName andTitle:(NSString*)title;
 @end
 

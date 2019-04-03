@@ -10,6 +10,7 @@
 #import "ItemView.h"
 #import "Masonry.h"
 #import "UIColor+Hex.h"
+#import "UIImageView+WebCache.h"
 @interface ItemViewCell()
 @property(nonatomic,strong)NSArray *titleArr;
 @property(nonatomic,strong)NSArray *imgArr;
@@ -36,9 +37,9 @@
 -(void)setup {
     self.marggingLeft = (screenWidth - 62*4) / 5;
     
-    self.imgArr = @[@"harvest",@"interactive",@"topic",@"case"];
+    self.imgArr = @[@"",@"",@"",@""];
     
-    self.titleArr = @[@"今日收获",@"亲子互动",@"本周话题",@"安全案例"];
+    self.titleArr = @[@"",@"",@"",@""];
     
     for (NSInteger i = 0;i < self.titleArr.count ; i ++) {
         ItemView *item = [[ItemView alloc]initWithImageName:self.imgArr[i] andTitle:self.titleArr[i]];
@@ -90,6 +91,15 @@ for (NSInteger i = 10; i < 10 + self.titleArr.count; i++) {
 -(void)touchAction:(UITapGestureRecognizer*)tap {
     if (_delegate && [_delegate respondsToSelector:@selector(didselectedItemOnIndex:)]) {
         [_delegate didselectedItemOnIndex:tap.view.tag - 10];
+    }
+}
+
+-(void)refreshUIWithModel:(NSArray *)modelArr {
+    for (NSInteger i = 0; i < modelArr.count; i ++) {
+        ItemView *item = [self viewWithTag:(10+i)];
+        NavItemModel *model = modelArr[i];
+        [item.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",gp_address,model.iconUrl]]];
+        item.label.text = model.name;
     }
 }
 

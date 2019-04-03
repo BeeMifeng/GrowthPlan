@@ -18,7 +18,7 @@ typedef enum : NSUInteger {
 } labelStyle;
 
 @interface GPlabelView : UIView
-@property(nonatomic,strong)NSString *GPtext;
+@property(nonatomic,copy)NSString *GPtext;
 
 -(instancetype)initWithIntroduce:(NSString*)intro andStyle:(labelStyle)style;
 @end

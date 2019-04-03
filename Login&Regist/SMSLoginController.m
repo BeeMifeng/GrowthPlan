@@ -10,10 +10,11 @@
 #import "GPlabelView.h"
 #import "GPGradient.h"
 #import "Verify.h"
-#import "AFNetworking.h"
+#import "NetWorkManager.h"
 #import "SVProgressHUD.h"
 #import "MCFileManager.h"
 #import "GPBarController.h"
+#import "InfoViewController.h"
 
 @interface SMSLoginController ()
 @property(nonatomic,strong)UIButton *loginBtn;
@@ -135,6 +136,9 @@
     self.codeLabel.clipsToBounds = YES;
     self.codeLabel.userInteractionEnabled = YES;
     
+    self.phoneNum.GPtext = @"15308483190";
+    self.codeNum.GPtext = @"123456";
+    
     //事件
     [self.loginBtn addTarget:self action:@selector(sureAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -146,25 +150,23 @@
 
 
 -(void)sureAction:(UIButton*)btn {
-    if ([Verify checkCodeNum:self.phoneNum.GPtext] && [Verify checkCodeNum:self.codeNum.GPtext]) {
-//        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-//        [SVProgressHUD show];
-        AFHTTPSessionManager *sessionManeger = [AFHTTPSessionManager manager];
-        sessionManeger.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",nil];
-        sessionManeger.responseSerializer = [AFJSONResponseSerializer serializer];
-        sessionManeger.requestSerializer.stringEncoding = NSUTF8StringEncoding;
-        sessionManeger.requestSerializer = [AFJSONRequestSerializer serializer];
-        
-        [sessionManeger POST:[NSString stringWithFormat:@"%@%@",gp_address,gp_verify_login] parameters:@{@"mobile":self.phoneNum.GPtext,@"verify":self.codeNum.GPtext} progress:^(NSProgress * _Nonnull uploadProgress) {
+    if ([Verify checkPhoneNum:self.phoneNum.GPtext] && [Verify checkCodeNum:self.codeNum.GPtext]) {
+        [SVProgressHUD showWithStatus:@"登录中…"];
+        [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@",gp_address_app,gp_verify_login] andMethod:POST andParams:@{@"mobile":self.phoneNum.GPtext,@"verify":self.codeNum.GPtext} andSuccessCallBack:^(id  _Nonnull responseObject) {
             
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if ([[responseObject[@"code"]  stringValue] isEqualToString:@"0"]) {
+                [SVProgressHUD showSuccessWithStatus:@"成功登录"];
+                [SVProgressHUD dismissWithDelay:2.0];
                 //登录成功,写入缓存
                 [MCFileManager saveDictionary:responseObject[@"data"] isPlistFileOfPath:gp_user_info];
-//                [SVProgressHUD dismissWithDelay:1.0];
                 //根据返回的信息判断是否进入信息填写专栏
-                if ([[responseObject[@"data"][@"user"][@"infoStatus"] stringValue] isEqualToString:@"1"]) {
+                if ([[responseObject[@"data"][@"user"][@"infoStatus"] stringValue] isEqualToString:@"0"]) {
                     //未填写信息,调出填写信息页面
+                    InfoViewController *infoCtl = [InfoViewController new];
+                    infoCtl.caller = @"SMSLoginController";
+                    [self presentViewController:infoCtl animated:YES completion:^{
+                        
+                    }];
                     
                 }else{
                     //已经填写信息,直接进入主页
@@ -179,9 +181,11 @@
                 [SVProgressHUD dismissWithDelay:2.0];
             }
             
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+        } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+            [SVProgressHUD showErrorWithStatus:@"链接错误"];
+            [SVProgressHUD dismissWithDelay:2.0];
         }];
+        
         
     }
 }

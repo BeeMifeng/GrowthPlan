@@ -12,6 +12,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "LoginController.h"
 #import "MCFileManager.h"
+#import "NetWorkManager.h"
 @interface AppDelegate ()
 
 @end
@@ -23,8 +24,10 @@
     // Override point for customization after application launch.
     
 //    self.window.rootViewController = [[GPBarController alloc]init];
+    //监测网络环境
+    [[NetWorkManager shareNetWorkManager]startMonitoring];
     
-//    NSLog(@"%@",[MCFileManager cacheDirectory]);
+    NSLog(@"%@",[MCFileManager cacheDirectory]);
     
     self.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[LoginController new]];
     

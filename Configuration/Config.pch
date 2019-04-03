@@ -30,11 +30,19 @@
 
 //接口地址
 
-#define gp_address @"http://60.205.230.170/app"
+#define gp_address @"http://60.205.230.170/"
 
-#define gp_psw_login @"/user/pwd/login"
+#define gp_address_app @"http://60.205.230.170/app/"
 
-#define gp_verify_login @"/user/verify/login"
+#define gp_psw_login @"user/pwd/login"
+
+#define gp_verify_login @"user/verify/login"
+
+#define gp_homeNavItme @"navigation"
+
+#define gp_home_articl @"navigation/index/news/"
+
+#define gp_banner  @"banner"
 
 #define gp_user_info [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"user.plist"]
 

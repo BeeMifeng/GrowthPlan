@@ -48,6 +48,11 @@
 		21ED1B3521D3707200A4BF07 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1B3421D3707100A4BF07 /* UIColor+Hex.m */; };
 		21ED1B3921D37E9500A4BF07 /* MineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1B3821D37E9500A4BF07 /* MineController.m */; };
 		21ED1B3C21D37EAB00A4BF07 /* PlanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1B3B21D37EAB00A4BF07 /* PlanController.m */; };
+		51060A8222547EF800D8DC9A /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51060A8122547EF800D8DC9A /* InfoViewController.m */; };
+		51060A84225482F200D8DC9A /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51060A83225482F200D8DC9A /* InfoViewController.xib */; };
+		51060A872254B8A000D8DC9A /* HomeArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 51060A862254B8A000D8DC9A /* HomeArticle.m */; };
+		510D1B1F225333EF00C0367D /* NetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 510D1B1E225333EF00C0367D /* NetWorkManager.m */; };
+		510D1B232253458600C0367D /* NavItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 510D1B222253458600C0367D /* NavItemModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,6 +134,15 @@
 		21ED1B3821D37E9500A4BF07 /* MineController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineController.m; sourceTree = "<group>"; };
 		21ED1B3A21D37EAB00A4BF07 /* PlanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlanController.h; sourceTree = "<group>"; };
 		21ED1B3B21D37EAB00A4BF07 /* PlanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlanController.m; sourceTree = "<group>"; };
+		51060A8022547EF800D8DC9A /* InfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		51060A8122547EF800D8DC9A /* InfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		51060A83225482F200D8DC9A /* InfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
+		51060A852254B8A000D8DC9A /* HomeArticle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeArticle.h; sourceTree = "<group>"; };
+		51060A862254B8A000D8DC9A /* HomeArticle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeArticle.m; sourceTree = "<group>"; };
+		510D1B1D225333EF00C0367D /* NetWorkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetWorkManager.h; sourceTree = "<group>"; };
+		510D1B1E225333EF00C0367D /* NetWorkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetWorkManager.m; sourceTree = "<group>"; };
+		510D1B212253458600C0367D /* NavItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavItemModel.h; sourceTree = "<group>"; };
+		510D1B222253458600C0367D /* NavItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavItemModel.m; sourceTree = "<group>"; };
 		8E598C522A57B9840FD91D2F /* Pods-GrowthPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrowthPlan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		C22F0E2DDE6B58634A9B4776 /* libPods-GrowthPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GrowthPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE00C78429A3193A81ACB198 /* Pods-GrowthPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrowthPlan.release.xcconfig"; path = "Pods/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan.release.xcconfig"; sourceTree = "<group>"; };
@@ -246,6 +260,8 @@
 		21ED1AFA21D34F4100A4BF07 = {
 			isa = PBXGroup;
 			children = (
+				51060A7F22547EC000D8DC9A /* otherController */,
+				510D1B1C225333CE00C0367D /* NetWork */,
 				2126D26C21EC6F0700A89198 /* Login&Regist */,
 				21ED1B3621D3707800A4BF07 /* Tools */,
 				21ED1B2321D35D9800A4BF07 /* MainCtl */,
@@ -288,6 +304,7 @@
 		21ED1B1C21D3512A00A4BF07 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				510D1B202253456400C0367D /* Model */,
 				21135A8421D481460027C7AE /* View */,
 				21ED1B2D21D36C9B00A4BF07 /* HomeController.h */,
 				21ED1B2E21D36C9B00A4BF07 /* HomeController.m */,
@@ -377,6 +394,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		51060A7F22547EC000D8DC9A /* otherController */ = {
+			isa = PBXGroup;
+			children = (
+				51060A8022547EF800D8DC9A /* InfoViewController.h */,
+				51060A8122547EF800D8DC9A /* InfoViewController.m */,
+				51060A83225482F200D8DC9A /* InfoViewController.xib */,
+			);
+			path = otherController;
+			sourceTree = "<group>";
+		};
+		510D1B1C225333CE00C0367D /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				510D1B1D225333EF00C0367D /* NetWorkManager.h */,
+				510D1B1E225333EF00C0367D /* NetWorkManager.m */,
+			);
+			path = NetWork;
+			sourceTree = "<group>";
+		};
+		510D1B202253456400C0367D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				510D1B212253458600C0367D /* NavItemModel.h */,
+				510D1B222253458600C0367D /* NavItemModel.m */,
+				51060A852254B8A000D8DC9A /* HomeArticle.h */,
+				51060A862254B8A000D8DC9A /* HomeArticle.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -439,6 +486,7 @@
 				21ED1B1321D34F4200A4BF07 /* LaunchScreen.storyboard in Resources */,
 				21ED1B1021D34F4200A4BF07 /* Assets.xcassets in Resources */,
 				21120AB621DC9F1A00FD9ACE /* Menu.json in Resources */,
+				51060A84225482F200D8DC9A /* InfoViewController.xib in Resources */,
 				21ED1B0E21D34F4100A4BF07 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,8 +502,9 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -463,11 +512,12 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6CB249BF1DB284E33C8EE8B3 /* [CP] Check Pods Manifest.lock */ = {
@@ -511,6 +561,7 @@
 				21ED1B2621D35DE500A4BF07 /* GPBarController.m in Sources */,
 				21ED1B3221D36E2100A4BF07 /* LearningController.m in Sources */,
 				215D4DA121D6232800B23966 /* GPGradient.m in Sources */,
+				510D1B1F225333EF00C0367D /* NetWorkManager.m in Sources */,
 				21ED1B3521D3707200A4BF07 /* UIColor+Hex.m in Sources */,
 				213815E221E83EFA002E5065 /* ItemController.m in Sources */,
 				2116572921EDC72C006A6F0F /* SMSLoginController.m in Sources */,
@@ -518,8 +569,10 @@
 				21120AB921DCA68800FD9ACE /* MineViewItem.m in Sources */,
 				212ACBCA2200230A00A56304 /* MCFileManager.m in Sources */,
 				21ED1B0B21D34F4100A4BF07 /* ViewController.m in Sources */,
+				51060A8222547EF800D8DC9A /* InfoViewController.m in Sources */,
 				215D4D9921D5FC5900B23966 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				21ED1B2921D35F0300A4BF07 /* GPNaviController.m in Sources */,
+				510D1B232253458600C0367D /* NavItemModel.m in Sources */,
 				21140B1221D70DD90056C30E /* LearningMainCell.m in Sources */,
 				2120FD8921F718D3006CE863 /* Verify.m in Sources */,
 				2126D27221EC701300A89198 /* LoginController.m in Sources */,
@@ -533,6 +586,7 @@
 				21135A8821D4A4430027C7AE /* GPSearchView.m in Sources */,
 				21120AAD21DC91A300FD9ACE /* MineViewCell.m in Sources */,
 				21ED1B3921D37E9500A4BF07 /* MineController.m in Sources */,
+				51060A872254B8A000D8DC9A /* HomeArticle.m in Sources */,
 				21ED1B0821D34F4100A4BF07 /* AppDelegate.m in Sources */,
 				210A356421DDA6BA0002F988 /* MineHeard.m in Sources */,
 			);
@@ -687,7 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = develop.GrowthPlan.GrowthPlan;
+				PRODUCT_BUNDLE_IDENTIFIER = develop.GrowthPlan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -709,7 +763,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = develop.GrowthPlan.GrowthPlan;
+				PRODUCT_BUNDLE_IDENTIFIER = develop.GrowthPlan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;

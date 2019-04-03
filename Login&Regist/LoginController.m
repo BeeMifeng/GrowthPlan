@@ -12,7 +12,7 @@
 #import "SMSLoginController.h"
 #import "ForgotPswController.h"
 #import "Verify.h"
-#import "AFNetworking.h"
+#import "NetWorkManager.h"
 #import "SVProgressHUD.h"
 @interface LoginController ()
 @property(nonatomic,strong)UIButton *loginBtn;
@@ -133,18 +133,10 @@
 
 -(void)loginAction:(UIButton*)btn {
     if ( [Verify checkPhoneNum:self.phoneNum.GPtext] && [Verify checkPassword:self.passWord.GPtext]) {
-        
-        AFHTTPSessionManager *sessionManeger = [AFHTTPSessionManager manager];
-        sessionManeger.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",nil];
-        sessionManeger.responseSerializer = [AFJSONResponseSerializer serializer];
-        sessionManeger.requestSerializer.stringEncoding = NSUTF8StringEncoding;
-        sessionManeger.requestSerializer = [AFJSONRequestSerializer serializer];
-        
-        
-        [sessionManeger POST:[NSString stringWithFormat:@"%@%@",gp_address,gp_psw_login] parameters:@{@"mobile":self.phoneNum.GPtext,@"password":self.passWord.GPtext} progress:^(NSProgress * _Nonnull uploadProgress) {
+        [[NetWorkManager shareNetWorkManager]requestDataWithUrl:[NSString stringWithFormat:@"%@%@",gp_address_app,gp_psw_login] andMethod:POST andParams:@{@"mobile":self.phoneNum.GPtext,@"password":self.passWord.GPtext} andSuccessCallBack:^(id _Nonnull responseObject) {
             
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if ([[responseObject[@"code"]  stringValue] isEqualToString:@"0"]) {
+                
                 
             }else
             {
@@ -155,10 +147,9 @@
                 [self.navigationController pushViewController:smsCtl animated:YES];
             }
             
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
             
         }];
-        
     }
 }
 

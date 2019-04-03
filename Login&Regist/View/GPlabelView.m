@@ -78,4 +78,8 @@
     self.GPtext = _field.text;
 }
 
+-(void)setGPtext:(NSString *)GPtext {
+    self.textFile.text = GPtext;
+    _GPtext = GPtext;
+}
 @end

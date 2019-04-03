@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ItemViewCell : UITableViewCell
 @property(nonatomic,weak)id <ItemViewCellDelegate> delegate;
+
+-(void)refreshUIWithModel:(NSArray *)modelArr;
 @end
 
 NS_ASSUME_NONNULL_END

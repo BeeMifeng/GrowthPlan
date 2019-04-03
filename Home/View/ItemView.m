@@ -11,8 +11,6 @@
 #import "UIColor+Hex.h"
 
 @interface ItemView()
-@property(nonatomic,strong)UIImageView *imageView;
-@property(nonatomic,strong)UILabel *label;
 @end
 
 @implementation ItemView

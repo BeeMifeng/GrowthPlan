@@ -13,6 +13,11 @@
 #import "ItemViewCell.h"
 #import "ListViewCell.h"
 #import "ItemController.h"
+#import "NavItemModel.h"
+#import "NetWorkManager.h"
+#import "MJRefresh.h"
+#import "MCFileManager.h"
+#import "UIImageView+WebCache.h"
 
 
 @interface HomeController ()<UITableViewDelegate,UITableViewDataSource,iCarouselDelegate,iCarouselDataSource,ItemViewCellDelegate>
@@ -24,6 +29,9 @@
 //数据源
 @property(nonatomic,strong)NSMutableArray *tabbleArr;
 @property(nonatomic,strong)NSMutableArray *icarArr;
+@property(nonatomic,strong)NSMutableArray *NavItemArr;
+
+@property(nonatomic,assign)NSInteger pageNum;
 @end
 
 @implementation HomeController
@@ -31,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    [self initObject];
     [self setupData];
     [self setupUI];
 }
@@ -39,15 +48,64 @@
     self.navigationController.navigationBar.hidden = YES;
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
+
+#pragma mark *****   初始化属性（数组、字典等）
+-(void)initObject {
+    self.tabbleArr = [NSMutableArray new];
+    self.icarArr = [NSMutableArray new];
+    self.NavItemArr = [NSMutableArray new];
+}
 
 #pragma mark *****   data
 -(void)setupData {
+    self.pageNum = 1;
     
-    self.icarArr = [NSMutableArray arrayWithArray:@[
-   @"http://pic25.nipic.com/20121110/10839717_103723525199_2.jpg",
-   @"http://pic3.nipic.com/20090619/2637387_110259061_2.jpg",
-   @"http://pic26.nipic.com/20121227/10193203_131357536000_2.jpg",
-                                                   ]];
+    //广告
+    [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@%@",gp_address_app,gp_banner,@"/3"] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
+        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
+            self.icarArr = responseObject[@"data"];
+            [self.tableView.mj_header endRefreshing];
+            [self.icarView reloadData];
+            [self.tableView reloadData];
+        }
+    } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        
+    }];
+    
+    //动态获取主界面功能按钮
+    [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@",gp_address_app,gp_homeNavItme] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
+        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
+            for (NSDictionary *dic in responseObject[@"data"]) {
+                NavItemModel *model = [NavItemModel yy_modelWithDictionary:dic];
+                [self.NavItemArr addObject:model];
+            }
+            
+            [self.tableView.mj_header endRefreshing];
+            [self.icarView reloadData];
+            [self.tableView reloadData];
+        }
+    } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        [self.tableView.mj_header endRefreshing];
+    }];
+    
+    
+    //文章列表
+    NSDictionary *userDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
+    [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@%li",gp_address_app,gp_home_articl,self.pageNum] andMethod:POST andParams:@{@"userId":userDic[@"user"][@"id"]} andSuccessCallBack:^(id  _Nonnull responseObject) {
+        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
+            //返回文章列表数组，转模型存数组
+            
+            [self.tableView.mj_header endRefreshing];
+            [self.icarView reloadData];
+            [self.tableView reloadData];
+        }
+    } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        [self.tableView.mj_header endRefreshing];
+    }];
 }
 
 #pragma mark ******  UI
@@ -68,13 +126,18 @@
     
     self.icarView.dataSource = self;
     self.icarView.delegate = self;
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        self.pageNum ++;
+        [self setupData];
+    }];
 }
 
 #pragma mark tableView delegate
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 7;
+    return self.tabbleArr.count + 2;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -88,8 +151,9 @@
         [cell addSubview:self.icarView];
     }else if (indexPath.row == 1){
        
-      ItemViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemViewCell"];
+        ItemViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:@"ItemViewCell"];
         cell.delegate = self;
+        [cell refreshUIWithModel:self.NavItemArr];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return  cell;
     }else
@@ -138,19 +202,21 @@
     if (view == nil)
     {
         view = [[UIImageView alloc] initWithFrame:CGRectMake(20, 0, screenWidth-40, (screenWidth-40)/1.8)];
-        ((UIImageView *)view).image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.icarArr[index]]]];
+        [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",gp_address,self.icarArr[index]]]];
         view.layer.cornerRadius = 10;
         view.clipsToBounds = YES;
-//        view.contentMode = UIViewContentModeCenter;
-    }  return view;
+    }else
+    {
+       [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",gp_address,self.icarArr[index]]]];
+    }
+    
+    return view;
 }
 #pragma mark ItemViewCellDelegate
 
 -(void)didselectedItemOnIndex:(NSInteger)index {
     
-    ItemController *itemCtl = [ItemController new];
-    itemCtl.navTitle = @"今日收获";
-    [self.navigationController pushViewController:itemCtl animated:YES];
+    
 }
 
 #pragma mark 懒加载
