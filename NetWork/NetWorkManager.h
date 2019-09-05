@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger {
     GET = 0,
-    POST
+    POST,
+    PUT
 } Method;
 
 @interface NetWorkManager : NSObject

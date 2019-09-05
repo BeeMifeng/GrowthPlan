@@ -44,6 +44,18 @@
 
 #define gp_banner  @"banner"
 
+#define gp_province_grade @"system/all"
+
+#define gp_upload_info @"user/upload/info"
+
+#define gp_learn_project @"baby/project"
+
+#define gp_learn_class @"class/all"
+
+#define gp_learn_knowledge @"knowledge"
+
 #define gp_user_info [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"user.plist"]
+
+#define gp_province_grade_info [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"province_grade.json"]
 
 #endif /* Config_pch */

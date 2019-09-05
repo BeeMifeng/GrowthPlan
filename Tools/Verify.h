@@ -19,4 +19,6 @@
 //验证密码
 +(BOOL)checkPassword:(NSString*)password;
 
++(BOOL)infoForm:(NSString*)ownerNickname ownerRelation:(NSString*)ownerRelation ownerBirthday:(NSString*)ownerbirthday ownerCity:(NSString*)ownerCity passWord:(NSString*)passWord babyNickName:(NSString*)babyNickName babySex:(NSString*)babySex babyBirthday:(NSString*)babyBorthday babyGrade:(NSString*)babyGrade babyDream:(NSString*)babyDream;
+
 @end

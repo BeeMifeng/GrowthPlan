@@ -24,4 +24,8 @@
     [gpNav setbackNav:self andTitle:self.navTitle];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
+}
 @end

@@ -13,6 +13,7 @@
 #import "LoginController.h"
 #import "MCFileManager.h"
 #import "NetWorkManager.h"
+#import "SVProgressHUD.h"
 @interface AppDelegate ()
 
 @end
@@ -24,13 +25,20 @@
     // Override point for customization after application launch.
     
 //    self.window.rootViewController = [[GPBarController alloc]init];
+    
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     //监测网络环境
     [[NetWorkManager shareNetWorkManager]startMonitoring];
     
     NSLog(@"%@",[MCFileManager cacheDirectory]);
     
-    self.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[LoginController new]];
-    
+    //判断缓存，有直接进首页。没有进登录页面
+    if ([MCFileManager dictionaryInPlistFileOfPath:gp_user_info]) {
+        self.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[GPBarController new]];
+    }else
+    {
+      self.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[LoginController new]];
+    }
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager]; // 获取类库的单例变量
     
     keyboardManager.enable = YES; // 控制整个功能是否启用

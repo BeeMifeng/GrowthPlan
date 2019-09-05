@@ -58,6 +58,14 @@ static NetWorkManager *manager = nil;
             }];
         }
         break;
+        case PUT:{
+            [self.sessionManeger PUT:urlString parameters:paramsDic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                successCallBack(responseObject);
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                failCallBack(task,error);
+            }];
+        }
+            break;
         default:
             break;
     }

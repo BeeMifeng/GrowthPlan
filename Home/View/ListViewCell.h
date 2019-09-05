@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HomeArticle.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ListViewCell : UITableViewCell
-
+-(void)refreshUI:(HomeArticle*)model;
 @end
 
 NS_ASSUME_NONNULL_END

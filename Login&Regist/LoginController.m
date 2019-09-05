@@ -14,6 +14,9 @@
 #import "Verify.h"
 #import "NetWorkManager.h"
 #import "SVProgressHUD.h"
+#import "GrowthPlanCatch.h"
+#import "GPBarController.h"
+#import "MCFileManager.h"
 @interface LoginController ()
 @property(nonatomic,strong)UIButton *loginBtn;
 @property(nonatomic,strong)GPlabelView *phoneNum;
@@ -26,6 +29,12 @@
     [super viewDidLoad];
     
     [self setupUI];
+    
+    [GrowthPlanCatch loadProvinceAndGrade:^(id  _Nonnull responseObject) {
+        
+    } fail:^(NSError * _Nonnull error) {
+        
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -136,8 +145,12 @@
         [[NetWorkManager shareNetWorkManager]requestDataWithUrl:[NSString stringWithFormat:@"%@%@",gp_address_app,gp_psw_login] andMethod:POST andParams:@{@"mobile":self.phoneNum.GPtext,@"password":self.passWord.GPtext} andSuccessCallBack:^(id _Nonnull responseObject) {
             
             if ([[responseObject[@"code"]  stringValue] isEqualToString:@"0"]) {
-                
-                
+                //登录成功,写入缓存
+                [MCFileManager saveDictionary:responseObject[@"data"] isPlistFileOfPath:gp_user_info];
+                GPBarController *gCtl = [[GPBarController alloc]init];
+                [self presentViewController:gCtl animated:YES completion:^{
+                    
+                }];
             }else
             {
                 [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"%@ %@",responseObject[@"msg"],@"请先注册"]];

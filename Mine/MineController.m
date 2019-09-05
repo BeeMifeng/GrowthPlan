@@ -13,6 +13,9 @@
 #import <NSObject+YYModel.h>
 #import "MineViewCell.h"
 #import "MineHeard.h"
+#import "MCFileManager.h"
+#import "GPNaviController.h"
+#import "LoginController.h"
 
 @interface MineController ()<UITableViewDelegate,UITableViewDataSource,MineHeardDelegate>
 @property(nonatomic,strong)UITableView *tableView;
@@ -92,7 +95,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%@",indexPath);
+    if (indexPath.row == 6) {// 退出登录
+        [self loginOut];
+    }
 }
 
 
@@ -126,6 +131,37 @@
 #ifdef DEBUG
     NSLog(@"你点我头干什么");
 #endif
+    
+}
+
+
+-(void)loginOut {
+    
+    UIAlertController *alterCtl = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您确定要退出吗?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alterCtl addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //删除缓存回到登录页面
+        if([MCFileManager removeAllFromFilePath:gp_user_info]){
+            UINavigationController *nav = (UINavigationController*)[UIApplication sharedApplication].delegate.window.rootViewController;
+            if([NSStringFromClass([nav.viewControllers.firstObject class]) isEqualToString:@"GPBarController"]){
+                //未经过登录控制器直接登录的
+                [UIApplication sharedApplication].delegate.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[LoginController new]];
+            }else{
+                //登录界面，登录进去的
+                [self.parentViewController dismissViewControllerAnimated:YES completion:^{
+
+                }];
+            }
+        }
+    }]];
+
+    [alterCtl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+
+    }]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alterCtl animated:NO completion:nil];
+    });
     
 }
 

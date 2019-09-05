@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "UIColor+Hex.h"
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
+#import "UIImageView+WebCache.h"
 @interface ListViewCell()
 @property(nonatomic,strong)UIImageView *listImageView;
 @property(nonatomic,strong)UILabel *titleLabel;
@@ -98,6 +99,14 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+
+-(void)refreshUI:(HomeArticle*)model {
+    [self.listImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",gp_address,model.titlePic]]];
+    self.titleLabel.text = model.title;
+    self.timeLabel.text = [model.createTime componentsSeparatedByString:@" "][0];
+    self.ThePaper.text = model.simpleContent;
 }
 
 @end

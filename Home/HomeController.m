@@ -18,6 +18,7 @@
 #import "MJRefresh.h"
 #import "MCFileManager.h"
 #import "UIImageView+WebCache.h"
+#import "HomeArticle.h"
 
 
 @interface HomeController ()<UITableViewDelegate,UITableViewDataSource,iCarouselDelegate,iCarouselDataSource,ItemViewCellDelegate>
@@ -39,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.pageNum = 1;
     [self initObject];
     [self setupData];
     [self setupUI];
@@ -46,6 +48,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -62,13 +65,10 @@
 
 #pragma mark *****   data
 -(void)setupData {
-    self.pageNum = 1;
-    
     //广告
     [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@%@",gp_address_app,gp_banner,@"/3"] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
         if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
             self.icarArr = responseObject[@"data"];
-            [self.tableView.mj_header endRefreshing];
             [self.icarView reloadData];
             [self.tableView reloadData];
         }
@@ -84,12 +84,12 @@
                 [self.NavItemArr addObject:model];
             }
             
-            [self.tableView.mj_header endRefreshing];
             [self.icarView reloadData];
             [self.tableView reloadData];
         }
     } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     }];
     
     
@@ -97,14 +97,29 @@
     NSDictionary *userDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
     [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@%li",gp_address_app,gp_home_articl,self.pageNum] andMethod:POST andParams:@{@"userId":userDic[@"user"][@"id"]} andSuccessCallBack:^(id  _Nonnull responseObject) {
         if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
-            //返回文章列表数组，转模型存数组
+            if (self.pageNum == 1) {
+                [self.tabbleArr removeAllObjects];
+            }
             
-            [self.tableView.mj_header endRefreshing];
+            //返回文章列表数组，转模型存数组
+            NSArray *tempArr = responseObject[@"data"][@"list"];
+            if (tempArr.count <= 0) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                return;
+            }
+            
+            for (NSDictionary *dic in responseObject[@"data"][@"list"]) {
+                HomeArticle *articleModel = [HomeArticle yy_modelWithDictionary:dic];
+                [self.tabbleArr addObject:articleModel];
+            }
             [self.icarView reloadData];
             [self.tableView reloadData];
         }
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -128,6 +143,11 @@
     self.icarView.delegate = self;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        self.pageNum = 1;
+        [self setupData];
+    }];
+    
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.pageNum ++;
         [self setupData];
     }];
@@ -158,8 +178,9 @@
         return  cell;
     }else
     {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"ListViewCell"];
-       
+       ListViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ListViewCell"];
+       [cell refreshUI:self.tabbleArr[indexPath.row-2]];
+       return cell;
     }
     
     return cell;
@@ -216,7 +237,9 @@
 
 -(void)didselectedItemOnIndex:(NSInteger)index {
     
-    
+    ItemController *iCtl = [ItemController new];
+    iCtl.navTitle = @"成长计划";
+    [self.navigationController pushViewController:iCtl animated:YES];
 }
 
 #pragma mark 懒加载

@@ -10,8 +10,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LearningHeardCell : UITableViewCell
+@protocol LearningHeardCellDelegate <NSObject>
+-(void)didClickMoreBtn;
+-(void)didClickCutGrade;
+@end
 
+@interface LearningHeardCell : UITableViewCell
+@property(nonatomic,strong)NSArray *itemArr;
+@property(nonatomic,weak)id <LearningHeardCellDelegate>delegate;
+
+-(void)refreshData:(NSArray*)disciplineArr and:(NSString*)currentGrade;
+
+-(void)refreshDiscipline:(NSArray*)disciplineArr;
+
+-(void)refreshCurrentGrade:(NSString*)currentGrade;
 @end
 
 NS_ASSUME_NONNULL_END
