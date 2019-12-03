@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -48,6 +48,10 @@
 		21ED1B3521D3707200A4BF07 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1B3421D3707100A4BF07 /* UIColor+Hex.m */; };
 		21ED1B3921D37E9500A4BF07 /* MineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1B3821D37E9500A4BF07 /* MineController.m */; };
 		21ED1B3C21D37EAB00A4BF07 /* PlanController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ED1B3B21D37EAB00A4BF07 /* PlanController.m */; };
+		51034F722394955900FA1539 /* NavListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 51034F712394955900FA1539 /* NavListCell.m */; };
+		51034F752394BC1200FA1539 /* ProjectAllModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51034F742394BC1200FA1539 /* ProjectAllModel.m */; };
+		51034F782394F92100FA1539 /* KnowledgeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51034F772394F92100FA1539 /* KnowledgeModel.m */; };
+		51034F7B23950BDF00FA1539 /* GPNSdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 51034F7A23950BDF00FA1539 /* GPNSdate.m */; };
 		51060A8222547EF800D8DC9A /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51060A8122547EF800D8DC9A /* InfoViewController.m */; };
 		51060A84225482F200D8DC9A /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51060A83225482F200D8DC9A /* InfoViewController.xib */; };
 		51060A872254B8A000D8DC9A /* HomeArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 51060A862254B8A000D8DC9A /* HomeArticle.m */; };
@@ -59,6 +63,14 @@
 		510D555B225DBD72003F73CE /* GradeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 510D555A225DBD72003F73CE /* GradeModel.m */; };
 		510FBD33225595EE004DD3F8 /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 510FBD32225595EE004DD3F8 /* CommentModel.m */; };
 		510FBD382255E3B6004DD3F8 /* GPUIPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 510FBD372255E3B6004DD3F8 /* GPUIPickView.m */; };
+		5143503D2390A2290067DCFB /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5143503C2390A2290067DCFB /* AboutController.m */; };
+		514350402390BC300067DCFB /* ContactUSController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5143503F2390BC300067DCFB /* ContactUSController.m */; };
+		514350432390FF430067DCFB /* BillController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514350422390FF430067DCFB /* BillController.m */; };
+		514350462391030A0067DCFB /* BillViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 514350452391030A0067DCFB /* BillViewCell.m */; };
+		51D4CEAC2395EAF000298A51 /* PlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D4CEAB2395EAF000298A51 /* PlanModel.m */; };
+		51D4CEAF2395FBC500298A51 /* SginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D4CEAE2395FBC500298A51 /* SginModel.m */; };
+		51D4CEB223960D1000298A51 /* BillModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D4CEB123960D1000298A51 /* BillModel.m */; };
+		51D4CEB5239639E800298A51 /* HomeDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D4CEB4239639E800298A51 /* HomeDetailController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,6 +152,14 @@
 		21ED1B3821D37E9500A4BF07 /* MineController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineController.m; sourceTree = "<group>"; };
 		21ED1B3A21D37EAB00A4BF07 /* PlanController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlanController.h; sourceTree = "<group>"; };
 		21ED1B3B21D37EAB00A4BF07 /* PlanController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlanController.m; sourceTree = "<group>"; };
+		51034F702394955900FA1539 /* NavListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavListCell.h; sourceTree = "<group>"; };
+		51034F712394955900FA1539 /* NavListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavListCell.m; sourceTree = "<group>"; };
+		51034F732394BC1200FA1539 /* ProjectAllModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProjectAllModel.h; sourceTree = "<group>"; };
+		51034F742394BC1200FA1539 /* ProjectAllModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectAllModel.m; sourceTree = "<group>"; };
+		51034F762394F92100FA1539 /* KnowledgeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KnowledgeModel.h; sourceTree = "<group>"; };
+		51034F772394F92100FA1539 /* KnowledgeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KnowledgeModel.m; sourceTree = "<group>"; };
+		51034F7923950BDF00FA1539 /* GPNSdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPNSdate.h; sourceTree = "<group>"; };
+		51034F7A23950BDF00FA1539 /* GPNSdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPNSdate.m; sourceTree = "<group>"; };
 		51060A8022547EF800D8DC9A /* InfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		51060A8122547EF800D8DC9A /* InfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		51060A83225482F200D8DC9A /* InfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
@@ -161,6 +181,22 @@
 		510FBD32225595EE004DD3F8 /* CommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
 		510FBD362255E3B6004DD3F8 /* GPUIPickView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUIPickView.h; sourceTree = "<group>"; };
 		510FBD372255E3B6004DD3F8 /* GPUIPickView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUIPickView.m; sourceTree = "<group>"; };
+		5143503B2390A2290067DCFB /* AboutController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
+		5143503C2390A2290067DCFB /* AboutController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
+		5143503E2390BC300067DCFB /* ContactUSController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactUSController.h; sourceTree = "<group>"; };
+		5143503F2390BC300067DCFB /* ContactUSController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactUSController.m; sourceTree = "<group>"; };
+		514350412390FF430067DCFB /* BillController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillController.h; sourceTree = "<group>"; };
+		514350422390FF430067DCFB /* BillController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillController.m; sourceTree = "<group>"; };
+		514350442391030A0067DCFB /* BillViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillViewCell.h; sourceTree = "<group>"; };
+		514350452391030A0067DCFB /* BillViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillViewCell.m; sourceTree = "<group>"; };
+		51D4CEAA2395EAF000298A51 /* PlanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlanModel.h; sourceTree = "<group>"; };
+		51D4CEAB2395EAF000298A51 /* PlanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlanModel.m; sourceTree = "<group>"; };
+		51D4CEAD2395FBC500298A51 /* SginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SginModel.h; sourceTree = "<group>"; };
+		51D4CEAE2395FBC500298A51 /* SginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SginModel.m; sourceTree = "<group>"; };
+		51D4CEB023960D1000298A51 /* BillModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillModel.h; sourceTree = "<group>"; };
+		51D4CEB123960D1000298A51 /* BillModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillModel.m; sourceTree = "<group>"; };
+		51D4CEB3239639E800298A51 /* HomeDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeDetailController.h; sourceTree = "<group>"; };
+		51D4CEB4239639E800298A51 /* HomeDetailController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeDetailController.m; sourceTree = "<group>"; };
 		8E598C522A57B9840FD91D2F /* Pods-GrowthPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrowthPlan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		C22F0E2DDE6B58634A9B4776 /* libPods-GrowthPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GrowthPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE00C78429A3193A81ACB198 /* Pods-GrowthPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrowthPlan.release.xcconfig"; path = "Pods/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan.release.xcconfig"; sourceTree = "<group>"; };
@@ -198,6 +234,8 @@
 				210A356321DDA6BA0002F988 /* MineHeard.m */,
 				210A356521DDD9630002F988 /* DateItem.h */,
 				210A356621DDD9630002F988 /* DateItem.m */,
+				514350442391030A0067DCFB /* BillViewCell.h */,
+				514350452391030A0067DCFB /* BillViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -207,6 +245,10 @@
 			children = (
 				21120AAF21DC9A2900FD9ACE /* MenuModel.h */,
 				21120AB021DC9A2900FD9ACE /* MenuModel.m */,
+				51D4CEAD2395FBC500298A51 /* SginModel.h */,
+				51D4CEAE2395FBC500298A51 /* SginModel.m */,
+				51D4CEB023960D1000298A51 /* BillModel.h */,
+				51D4CEB123960D1000298A51 /* BillModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -224,6 +266,8 @@
 				215D4D8F21D5C7FA00B23966 /* ItemViewCell.m */,
 				215D4D9421D5F30200B23966 /* ListViewCell.h */,
 				215D4D9521D5F30200B23966 /* ListViewCell.m */,
+				51034F702394955900FA1539 /* NavListCell.h */,
+				51034F712394955900FA1539 /* NavListCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -329,6 +373,8 @@
 				21ED1B2E21D36C9B00A4BF07 /* HomeController.m */,
 				213815E021E83EFA002E5065 /* ItemController.h */,
 				213815E121E83EFA002E5065 /* ItemController.m */,
+				51D4CEB3239639E800298A51 /* HomeDetailController.h */,
+				51D4CEB4239639E800298A51 /* HomeDetailController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -349,6 +395,7 @@
 		21ED1B1E21D3515500A4BF07 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
+				51D4CEA92395E93A00298A51 /* Model */,
 				21140B1321D74CE40056C30E /* View */,
 				21ED1B3A21D37EAB00A4BF07 /* PlanController.h */,
 				21ED1B3B21D37EAB00A4BF07 /* PlanController.m */,
@@ -364,6 +411,12 @@
 				21120AB521DC9F1A00FD9ACE /* Menu.json */,
 				21ED1B3721D37E9500A4BF07 /* MineController.h */,
 				21ED1B3821D37E9500A4BF07 /* MineController.m */,
+				5143503B2390A2290067DCFB /* AboutController.h */,
+				5143503C2390A2290067DCFB /* AboutController.m */,
+				5143503E2390BC300067DCFB /* ContactUSController.h */,
+				5143503F2390BC300067DCFB /* ContactUSController.m */,
+				514350412390FF430067DCFB /* BillController.h */,
+				514350422390FF430067DCFB /* BillController.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -404,6 +457,8 @@
 				215D4DA021D6232800B23966 /* GPGradient.m */,
 				21120AB221DC9C8A00FD9ACE /* NSDictionary+JSON.h */,
 				21120AB321DC9C8A00FD9ACE /* NSDictionary+JSON.m */,
+				51034F7923950BDF00FA1539 /* GPNSdate.h */,
+				51034F7A23950BDF00FA1539 /* GPNSdate.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -457,6 +512,10 @@
 				510D5557225DBD64003F73CE /* ProjectModel.m */,
 				510D5559225DBD72003F73CE /* GradeModel.h */,
 				510D555A225DBD72003F73CE /* GradeModel.m */,
+				51034F732394BC1200FA1539 /* ProjectAllModel.h */,
+				51034F742394BC1200FA1539 /* ProjectAllModel.m */,
+				51034F762394F92100FA1539 /* KnowledgeModel.h */,
+				51034F772394F92100FA1539 /* KnowledgeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -468,6 +527,15 @@
 				510FBD372255E3B6004DD3F8 /* GPUIPickView.m */,
 			);
 			path = UIfactory;
+			sourceTree = "<group>";
+		};
+		51D4CEA92395E93A00298A51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				51D4CEAA2395EAF000298A51 /* PlanModel.h */,
+				51D4CEAB2395EAF000298A51 /* PlanModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -546,20 +614,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan-resources.sh",
-				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-GrowthPlan/Pods-GrowthPlan-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -600,16 +659,23 @@
 				215D4D9E21D60F9A00B23966 /* LearningHeardCell.m in Sources */,
 				215D4D9621D5F30200B23966 /* ListViewCell.m in Sources */,
 				21ED1B2C21D36BE000A4BF07 /* GPController.m in Sources */,
+				514350462391030A0067DCFB /* BillViewCell.m in Sources */,
 				21135A8E21D4AC1E0027C7AE /* ItemView.m in Sources */,
 				510FBD382255E3B6004DD3F8 /* GPUIPickView.m in Sources */,
+				514350432390FF430067DCFB /* BillController.m in Sources */,
 				21140B1621D74E300056C30E /* PlanHeardCell.m in Sources */,
 				21ED1B2F21D36C9B00A4BF07 /* HomeController.m in Sources */,
 				510FBD33225595EE004DD3F8 /* CommentModel.m in Sources */,
 				215D4D9021D5C7FA00B23966 /* ItemViewCell.m in Sources */,
+				51034F782394F92100FA1539 /* KnowledgeModel.m in Sources */,
 				21ED1B2621D35DE500A4BF07 /* GPBarController.m in Sources */,
 				21ED1B3221D36E2100A4BF07 /* LearningController.m in Sources */,
+				5143503D2390A2290067DCFB /* AboutController.m in Sources */,
 				215D4DA121D6232800B23966 /* GPGradient.m in Sources */,
+				51D4CEB223960D1000298A51 /* BillModel.m in Sources */,
+				51034F722394955900FA1539 /* NavListCell.m in Sources */,
 				510D1B1F225333EF00C0367D /* NetWorkManager.m in Sources */,
+				51D4CEB5239639E800298A51 /* HomeDetailController.m in Sources */,
 				21ED1B3521D3707200A4BF07 /* UIColor+Hex.m in Sources */,
 				213815E221E83EFA002E5065 /* ItemController.m in Sources */,
 				510C2975225B2D5C00D0DCA3 /* GrowthPlanCatch.m in Sources */,
@@ -622,6 +688,7 @@
 				51060A8222547EF800D8DC9A /* InfoViewController.m in Sources */,
 				215D4D9921D5FC5900B23966 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				510D5558225DBD64003F73CE /* ProjectModel.m in Sources */,
+				51D4CEAF2395FBC500298A51 /* SginModel.m in Sources */,
 				21ED1B2921D35F0300A4BF07 /* GPNaviController.m in Sources */,
 				510D1B232253458600C0367D /* NavItemModel.m in Sources */,
 				21140B1221D70DD90056C30E /* LearningMainCell.m in Sources */,
@@ -631,14 +698,18 @@
 				21120AB121DC9A2900FD9ACE /* MenuModel.m in Sources */,
 				21120AB421DC9C8A00FD9ACE /* NSDictionary+JSON.m in Sources */,
 				21ED1B1621D34F4200A4BF07 /* main.m in Sources */,
+				51034F7B23950BDF00FA1539 /* GPNSdate.m in Sources */,
 				21ED1B3C21D37EAB00A4BF07 /* PlanController.m in Sources */,
 				21120AA921DC515900FD9ACE /* TableCell.m in Sources */,
 				210A356721DDD9630002F988 /* DateItem.m in Sources */,
+				514350402390BC300067DCFB /* ContactUSController.m in Sources */,
 				2126D27721EC7ABE00A89198 /* GPlabelView.m in Sources */,
 				21135A8821D4A4430027C7AE /* GPSearchView.m in Sources */,
 				21120AAD21DC91A300FD9ACE /* MineViewCell.m in Sources */,
 				21ED1B3921D37E9500A4BF07 /* MineController.m in Sources */,
+				51D4CEAC2395EAF000298A51 /* PlanModel.m in Sources */,
 				51060A872254B8A000D8DC9A /* HomeArticle.m in Sources */,
+				51034F752394BC1200FA1539 /* ProjectAllModel.m in Sources */,
 				21ED1B0821D34F4100A4BF07 /* AppDelegate.m in Sources */,
 				210A356421DDA6BA0002F988 /* MineHeard.m in Sources */,
 			);

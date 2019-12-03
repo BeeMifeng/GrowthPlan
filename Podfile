@@ -14,4 +14,5 @@ target 'GrowthPlan' do
   pod 'AFNetworking', '~> 3.2.1'
   pod 'MJRefresh', '~> 3.1.16'
   pod 'SDWebImage', '~> 4.4.6'
+  pod 'TYAttributedLabel', '~> 2.6.6'
 end

@@ -41,13 +41,15 @@
     return self;
 }
 
--(void)setIsSignin:(BOOL)isSignin {
-    if (isSignin) {
+-(void)refreshUIWithSignMode:(SginModel*)model {
+    if ([model.signFlag  isEqual: @"1"]) {
         self.backgroundColor = [UIColor colorFromHex:0x4578FF alpha:1.0];
     }else
-    {        
+    {
         self.backgroundColor = [UIColor colorFromHex:0xC4D4FF alpha:1.0];
     }
+    self.mouth.text = model.month;
+    self.day.text = model.day;
 }
 
 @end

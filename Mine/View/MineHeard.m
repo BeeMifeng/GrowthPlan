@@ -9,6 +9,10 @@
 #import "MineHeard.h"
 #import "DateItem.h"
 #import "GPGradient.h"
+#import "MCFileManager.h"
+#import "NetWorkManager.h"
+#import "SginModel.h"
+#import "SVProgressHUD.h"
 @interface MineHeard()
 @property(nonatomic,strong)UIImageView *heardView;
 @property(nonatomic,strong)UILabel *nameLabel;
@@ -16,6 +20,8 @@
 @property(nonatomic,strong)UIView *writeView; //更改按键的外层View 增大点击热区
 @property(nonatomic,strong)UIView *signView;
 @property(nonatomic,strong)UIButton *signBtn;
+
+@property(nonatomic,strong)NSMutableArray<SginModel*> *signArr;
 @end
 
 @implementation MineHeard
@@ -29,6 +35,8 @@
 
 
 -(void)setupUI {
+    
+    _signArr = [NSMutableArray new];
     
     UIView *wrapperView = [[UIView alloc]init];
     self.heardView = [[UIImageView alloc]init];
@@ -119,12 +127,15 @@
     self.heardView.clipsToBounds = YES;
     self.heardView.image = [UIImage imageNamed:@"placeImg"];
     
-    self.nameLabel.text = @"旗木卡卡西";
+     NSDictionary *userCatchDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
+    
+    
+    self.nameLabel.text = userCatchDic[@"user"][@"nickname"];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.font = [UIFont systemFontOfSize:20];
     self.nameLabel.textColor = [UIColor colorFromHex:0x333333 alpha:1.0];
     
-    self.growthID.text = @"成长号：1123445";
+    self.growthID.text = [NSString stringWithFormat:@"成长号：%@",userCatchDic[@"baby"][@"grownNo"]];
     self.growthID.textAlignment = NSTextAlignmentCenter;
     self.growthID.font = [UIFont systemFontOfSize:15];
     self.growthID.textColor = [UIColor colorFromHex:0x666666 alpha:1.0];
@@ -147,12 +158,73 @@
     [self.heardView addGestureRecognizer:tap];
     self.heardView.userInteractionEnabled = true;
     
+    
+    UITapGestureRecognizer *editTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(writerViewTapAction:)];
+       [self.writeView addGestureRecognizer:editTap];
+       self.writeView.userInteractionEnabled = true;
+    
+    [self.signBtn addTarget:self action:@selector(signAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self setupData];
 }
 
 -(void)hearViewTapAction:(UITapGestureRecognizer*)tap {
     
     if (_delegate && [_delegate respondsToSelector:@selector(didTouchHearView:)]) {
         [_delegate didTouchHearView:self.heardView];
+    }
+}
+
+-(void)writerViewTapAction:(UITapGestureRecognizer*)tap {
+    if (_delegate && [_delegate respondsToSelector:@selector(didTouchEditView:)]) {
+        [_delegate didTouchEditView:self.heardView];
+    }
+}
+
+
+
+//签到数据
+-(void)setupData {
+    [_signArr removeAllObjects];
+    NSDictionary *userCatchDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
+    [[NetWorkManager shareNetWorkManager]requestDataWithUrl:[NSString stringWithFormat:@"%@%@/%@",gp_address_app,gp_sign,userCatchDic[@"user"][@"id"]] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
+            for (NSDictionary *dic in responseObject[@"data"]) {
+                SginModel *model = [SginModel yy_modelWithDictionary:dic];
+                [self.signArr addObject:model];
+            }
+            //刷新数据
+            [self refreshDateUI];
+        }
+    } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        
+    }];
+}
+
+
+-(void)signAction:(UIButton*)btn {
+    NSDictionary *userCatchDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
+    [[NetWorkManager shareNetWorkManager]requestDataWithUrl:[NSString stringWithFormat:@"%@%@/%@",gp_address_app,gp_sign,userCatchDic[@"user"][@"id"]] andMethod:POST andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
+            //刷新数据
+             [SVProgressHUD showSuccessWithStatus:@"签到成功"];
+             [SVProgressHUD dismissWithDelay:2.0];
+             [self setupData];
+        }else
+        {
+             [SVProgressHUD showInfoWithStatus:responseObject[@"msg"]];
+             [SVProgressHUD dismissWithDelay:2.0];
+        }
+    } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        
+    }];
+}
+
+
+-(void)refreshDateUI {
+    for (NSInteger i = 0; i < self.signArr.count; i ++) {
+        DateItem *date = [self.signView viewWithTag:10+i];
+        [date refreshUIWithSignMode:self.signArr[i]];
     }
 }
 

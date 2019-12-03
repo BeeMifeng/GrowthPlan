@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "KnowledgeModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LearningMainCell : UITableViewCell
-
+-(void)refreshUI:(KnowledgeModel*)model;
 @end
 
 NS_ASSUME_NONNULL_END

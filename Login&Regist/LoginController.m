@@ -148,6 +148,7 @@
                 //登录成功,写入缓存
                 [MCFileManager saveDictionary:responseObject[@"data"] isPlistFileOfPath:gp_user_info];
                 GPBarController *gCtl = [[GPBarController alloc]init];
+                gCtl.modalPresentationStyle = UIModalPresentationFullScreen;
                 [self presentViewController:gCtl animated:YES completion:^{
                     
                 }];

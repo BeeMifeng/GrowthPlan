@@ -16,7 +16,11 @@
 #import "MCFileManager.h"
 #import "GPNaviController.h"
 #import "LoginController.h"
-
+#import "AboutController.h"
+#import "ContactUSController.h"
+#import "InfoViewController.h"
+#import "BillController.h"
+#import "NetWorkManager.h"
 @interface MineController ()<UITableViewDelegate,UITableViewDataSource,MineHeardDelegate>
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray *menuArr;
@@ -33,6 +37,12 @@
    
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [self setStatueBackColor:[UIColor clearColor] andTextColor:UIStatusBarStyleDefault];
+    self.navigationController.navigationBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
+}
+
 -(void)setupData {
 
     NSDictionary *dic = [NSDictionary readLocalFileWithName:@"Menu"];
@@ -40,7 +50,6 @@
         MenuModel *model = [MenuModel yy_modelWithDictionary:menuDic];
         [self.menuArr addObject:model];
     }
-    
 }
 
 
@@ -95,7 +104,24 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 6) {// 退出登录
+    if(indexPath.row == 0){
+        
+    }else if (indexPath.row == 1) {// 购买记录
+        BillController *Bctl = [BillController new];
+        [self.navigationController pushViewController:Bctl animated:YES];
+    }
+    else if (indexPath.row == 2) {// 联系我们
+        ContactUSController *contect = [ContactUSController new];
+        [self.navigationController pushViewController:contect animated:YES];
+    }else if (indexPath.row == 3) {// 关于我们
+        AboutController *about = [AboutController new];
+        [self.navigationController pushViewController:about animated:YES];
+    }else if (indexPath.row == 4) {// 联系我们
+        
+    }else if (indexPath.row == 5) {// 修改密码
+        
+    }
+    else if (indexPath.row == 6) {// 退出登录
         [self loginOut];
     }
 }
@@ -114,16 +140,8 @@
 }
 
 
-
--(void)viewWillAppear:(BOOL)animated {
-    
-   [self setStatueBackColor:[UIColor clearColor] andTextColor:UIStatusBarStyleLightContent];
-}
-
-
 -(void)viewWillDisappear:(BOOL)animated {
-    
-   [self setStatueBackColor:[UIColor whiteColor] andTextColor:UIStatusBarStyleDefault];
+  [self setStatueBackColor:[UIColor whiteColor] andTextColor:UIStatusBarStyleDefault];
 }
 
 #pragma mark MineHeardDelegate
@@ -132,6 +150,12 @@
     NSLog(@"你点我头干什么");
 #endif
     
+}
+
+-(void)didTouchEditView:(UIView *)view {
+    InfoViewController *infoCtl = [InfoViewController new];
+    infoCtl.caller = @"MineController";
+    [self.navigationController pushViewController:infoCtl animated:YES];
 }
 
 

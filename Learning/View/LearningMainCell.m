@@ -34,6 +34,8 @@
 }
 
 -(void)setup {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     UIView *wrapper = [[UIView alloc]init];
     self.markView = [[UIImageView alloc]init];
     self.discipline = [UILabel new];
@@ -130,6 +132,15 @@
     self.content.text = @"Ant Design是一个服务于企业级产品的设计体系，基于『确定』和『自然』的设计价值观和模块化的解决方案，让设计者专注于更好的用户体验。";
     self.content.font = [UIFont systemFontOfSize:13];
     self.content.textColor = [UIColor GPTextTheTimeColor];
+    
+}
+
+-(void)refreshUI:(KnowledgeModel*)model {
+    
+    self.discipline.text = model.projectName;
+    self.content.text = model.content;
+    self.seeNum.text = model.readCount;
+    self.thePaper.text = [model.content substringToIndex:20];
     
 }
 

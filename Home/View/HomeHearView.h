@@ -10,8 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeHearView : UIView
+@protocol HomeHearViewDelegate <NSObject>
 
+-(void)didSelectedContectUs:(UIView*)view;
+
+-(void)startSearch:(NSString*)searchText;
+
+@end
+
+@interface HomeHearView : UIView
+@property(nonatomic,weak)id <HomeHearViewDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

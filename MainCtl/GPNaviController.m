@@ -60,6 +60,6 @@
 
 
 -(void)comeBack {
-    [self popViewControllerAnimated:YES];  
+    [self popViewControllerAnimated:NO];  
 }
 @end

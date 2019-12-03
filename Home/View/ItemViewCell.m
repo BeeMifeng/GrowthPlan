@@ -12,8 +12,7 @@
 #import "UIColor+Hex.h"
 #import "UIImageView+WebCache.h"
 @interface ItemViewCell()
-@property(nonatomic,strong)NSArray *titleArr;
-@property(nonatomic,strong)NSArray *imgArr;
+@property(nonatomic,strong)NSArray<NavItemModel *> *titleArr;
 
 //距离屏幕的边距
 @property(nonatomic,assign)CGFloat marggingLeft;
@@ -29,20 +28,15 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setup];
+       
     }
     return self;
 }
 
 -(void)setup {
     self.marggingLeft = (screenWidth - 62*4) / 5;
-    
-    self.imgArr = @[@"",@"",@"",@""];
-    
-    self.titleArr = @[@"",@"",@"",@""];
-    
     for (NSInteger i = 0;i < self.titleArr.count ; i ++) {
-        ItemView *item = [[ItemView alloc]initWithImageName:self.imgArr[i] andTitle:self.titleArr[i]];
+        ItemView *item = [[ItemView alloc]initWithImageName:self.titleArr[i].name andTitle:self.titleArr[i].iconUrl];
         item.tag = 10 + i;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchAction:)];
@@ -59,24 +53,13 @@
     
 for (NSInteger i = 10; i < 10 + self.titleArr.count; i++) {
     ItemView *item = [self viewWithTag:i];
-    
-    if (i == 10) {
         [item mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(9);
-            make.left.mas_equalTo(self.marggingLeft);
+            make.top.mas_equalTo(9 + 100*((i-10)/4));
+            make.left.mas_equalTo(self.marggingLeft + ((screenWidth - self.marggingLeft * 2 - 62*4)/3+62) * ((i-10)%4));
             make.width.mas_equalTo(62);
             make.height.mas_equalTo(82);
         }];
-    }else
-    {
-        [item mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(9);
-            make.left.mas_equalTo([self viewWithTag:(i-1)].mas_right).offset((screenWidth - self.marggingLeft * 2 - 62*4)/3);
-            make.width.mas_equalTo(62);
-            make.height.mas_equalTo(82);
-        }];
-    }
-}
+   }
     
 }
 
@@ -95,6 +78,8 @@ for (NSInteger i = 10; i < 10 + self.titleArr.count; i++) {
 }
 
 -(void)refreshUIWithModel:(NSArray *)modelArr {
+    self.titleArr = modelArr;
+    [self setup];
     for (NSInteger i = 0; i < modelArr.count; i ++) {
         ItemView *item = [self viewWithTag:(10+i)];
         NavItemModel *model = modelArr[i];

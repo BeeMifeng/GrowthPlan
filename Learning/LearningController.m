@@ -16,6 +16,8 @@
 #import "ProjectModel.h"
 #import "GPUIPickView.h"
 #import "MoreProController.h"
+#import "MJRefresh.h"
+#import "KnowledgeModel.h"
 @interface LearningController ()<UITableViewDelegate,UITableViewDataSource,LearningHeardCellDelegate,GPUIPickViewDelegate>
 //UI
 @property(nonatomic,strong)UITableView *tableView;
@@ -29,6 +31,7 @@
 @property(nonatomic,strong)NSMutableArray *gradeArr;
 @property(nonatomic,copy)NSString *currentGrade;
 
+@property(nonatomic,assign)NSInteger pageNum;
 @end
 
 @implementation LearningController
@@ -40,6 +43,8 @@
     self.gradeModelArr = [NSMutableArray new];
     self.projectArr = [NSMutableArray new];
     self.gradeArr = [NSMutableArray new];
+    self.tabbleArr = [NSMutableArray new];
+    self.pageNum = 1;
     [self setupData];
     [self setupUI];
 }
@@ -54,10 +59,10 @@
 -(void)setupData {
     //学科数据
     NSDictionary *userCatchDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
-    NSLog(@"%@",userCatchDic[@"baby"][@"id"]);
     [[NetWorkManager shareNetWorkManager]requestDataWithUrl:[NSString stringWithFormat:@"%@%@/%@",gp_address_app,gp_learn_project,userCatchDic[@"baby"][@"id"]] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
-        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
-            
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
+            [self.projectArr removeAllObjects];
+            [self.projectModelArr removeAllObjects];
             for (NSDictionary *dic in responseObject[@"data"]) {
                 ProjectModel *model = [ProjectModel yy_modelWithDictionary:dic];
                 [self.projectModelArr addObject:model];
@@ -71,7 +76,9 @@
     
     //年级数据
     [[NetWorkManager shareNetWorkManager]requestDataWithUrl:[NSString stringWithFormat:@"%@%@/%@",gp_address_app,gp_learn_class,userCatchDic[@"baby"][@"id"]] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
-        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
+        if ([responseObject[@"code"]  isEqualToString:@"0"]) {
+             [self.gradeArr removeAllObjects];
+             [self.gradeModelArr removeAllObjects];
             for (NSDictionary *dic in responseObject[@"data"]) {
                 GradeModel *model = [GradeModel yy_modelWithDictionary:dic];
                 [self.gradeModelArr addObject:model];
@@ -85,7 +92,36 @@
         
     }];
     
+    [self knowledge:1];
+    
+}
 
+#pragma mark ******  知识点
+-(void)knowledge:(NSInteger)page {
+    //列表数据
+    NSDictionary *userCatchDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
+    [[NetWorkManager shareNetWorkManager]requestDataWithUrl:[NSString stringWithFormat:@"%@%@/%@/%@/%li",gp_address_app,gp_learn_knowledge,userCatchDic[@"baby"][@"id"],userCatchDic[@"baby"][@"classId"],self.pageNum] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
+        if ([responseObject[@"code"]  isEqualToString:@"0"]) {
+            NSArray *tempArr = responseObject[@"data"];
+            if (tempArr.count <= 0) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                return;
+            }
+            if (self.pageNum == 1) { //删除数组数据
+                [self.tabbleArr removeAllObjects];
+            }
+            for (NSDictionary *dic in responseObject[@"data"]) {
+                KnowledgeModel *model = [KnowledgeModel yy_modelWithDictionary:dic];
+                [self.tabbleArr addObject:model];
+            }
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+        }
+        
+    } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        
+    }];
 }
 
 #pragma mark ******  UI
@@ -103,13 +139,23 @@
     [self.tableView registerClass:[LearningHeardCell class] forCellReuseIdentifier:@"LearningHeardCell"];
     [self.tableView registerClass:[LearningMainCell class] forCellReuseIdentifier:@"LearningMainCell"];
     
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+           self.pageNum = 1;
+           [self setupData];
+       }];
+       
+       self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+           self.pageNum ++;
+           [self setupData];
+       }];
+    
 }
 
 #pragma mark tableView delegate
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 7;
+
+    return _tabbleArr.count + 1;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -123,8 +169,9 @@
         return lCell;
     }else{
       
-        cell = [tableView dequeueReusableCellWithIdentifier:@"LearningMainCell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        LearningMainCell *eCell = [tableView dequeueReusableCellWithIdentifier:@"LearningMainCell"];
+        [eCell refreshUI:self.tabbleArr[indexPath.row - 1]];
+        return eCell;
     }
     
     return cell;
@@ -155,6 +202,11 @@
 #pragma mark LearningHeardCellDelegate
 -(void)didClickMoreBtn {
     MoreProController *mCtl = [MoreProController new];
+    __weak typeof(self) weakSelf = self;
+    mCtl.updateBlock = ^(NSArray *projectArr) {
+        weakSelf.projectArr = [projectArr mutableCopy];
+        [weakSelf setupData];
+    };
     [self.navigationController pushViewController:mCtl animated:YES];
 }
 
@@ -175,9 +227,10 @@
     }
    
     [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@/%@",gp_address_app,@"class",userCatchDic[@"baby"][@"id"]] andMethod:PUT andParams:paramsDic andSuccessCallBack:^(id  _Nonnull responseObject) {
-        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
+        if ([responseObject[@"code"]  isEqualToString:@"0"]) {
             LearningHeardCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
             [cell refreshCurrentGrade:string];
+            [self setupData];
         }
     } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         

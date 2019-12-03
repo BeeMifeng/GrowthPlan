@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GPController : UIViewController
+-(UIView*)getStatusBar;
 -(void)setStatueBackColor:(UIColor*)bColor andTextColor:(UIStatusBarStyle)statue;
 @end
 

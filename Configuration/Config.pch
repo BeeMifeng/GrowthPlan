@@ -50,9 +50,17 @@
 
 #define gp_learn_project @"baby/project"
 
+#define gp_project_all @"project/all"
+
 #define gp_learn_class @"class/all"
 
 #define gp_learn_knowledge @"knowledge"
+
+#define gp_plan_profession @"profession/plan"
+
+#define gp_sign @"sign"
+
+#define gp_order_list @"order/list"
 
 #define gp_user_info [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"user.plist"]
 

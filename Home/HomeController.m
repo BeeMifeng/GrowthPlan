@@ -19,9 +19,10 @@
 #import "MCFileManager.h"
 #import "UIImageView+WebCache.h"
 #import "HomeArticle.h"
+#import "ContactUSController.h"
+#import "HomeDetailController.h"
 
-
-@interface HomeController ()<UITableViewDelegate,UITableViewDataSource,iCarouselDelegate,iCarouselDataSource,ItemViewCellDelegate>
+@interface HomeController ()<UITableViewDelegate,UITableViewDataSource,iCarouselDelegate,iCarouselDataSource,ItemViewCellDelegate,HomeHearViewDelegate>
 
 //UI
 @property(nonatomic,strong)UITableView *tableView;
@@ -67,7 +68,7 @@
 -(void)setupData {
     //广告
     [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@%@",gp_address_app,gp_banner,@"/3"] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
-        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
             self.icarArr = responseObject[@"data"];
             [self.icarView reloadData];
             [self.tableView reloadData];
@@ -78,12 +79,12 @@
     
     //动态获取主界面功能按钮
     [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@",gp_address_app,gp_homeNavItme] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
-        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
+        if ([responseObject[@"code"]isEqualToString:@"0"]) {
+            [self.NavItemArr removeAllObjects];
             for (NSDictionary *dic in responseObject[@"data"]) {
                 NavItemModel *model = [NavItemModel yy_modelWithDictionary:dic];
                 [self.NavItemArr addObject:model];
             }
-            
             [self.icarView reloadData];
             [self.tableView reloadData];
         }
@@ -96,19 +97,19 @@
     //文章列表
     NSDictionary *userDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
     [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@%li",gp_address_app,gp_home_articl,self.pageNum] andMethod:POST andParams:@{@"userId":userDic[@"user"][@"id"]} andSuccessCallBack:^(id  _Nonnull responseObject) {
-        if ([[responseObject[@"code"] stringValue] isEqualToString:@"0"]) {
+        if ([responseObject[@"code"]  isEqualToString:@"0"]) {
             if (self.pageNum == 1) {
                 [self.tabbleArr removeAllObjects];
             }
             
             //返回文章列表数组，转模型存数组
-            NSArray *tempArr = responseObject[@"data"][@"list"];
+            NSArray *tempArr = responseObject[@"data"];
             if (tempArr.count <= 0) {
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
                 return;
             }
             
-            for (NSDictionary *dic in responseObject[@"data"][@"list"]) {
+            for (NSDictionary *dic in responseObject[@"data"]) {
                 HomeArticle *articleModel = [HomeArticle yy_modelWithDictionary:dic];
                 [self.tabbleArr addObject:articleModel];
             }
@@ -186,8 +187,20 @@
     return cell;
 }
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row != 0 && indexPath.row != 1){
+        //  前往详情页
+        HomeDetailController *hCtl = [HomeDetailController new];
+        hCtl.articleModel = self.tabbleArr[indexPath.row - 2];
+        [self.navigationController pushViewController:hCtl animated:YES];
+    }
+}
+
+
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     HomeHearView *view = [[HomeHearView alloc]init];
+    view.delegate = self;
     view.frame = CGRectMake(0, 0, screenWidth, 68);
     return view;
 }
@@ -202,7 +215,7 @@
              return screenWidth/1.8;
             break;
         case 1:
-            return 100;
+            return 100 * self.NavItemArr.count/4;
             break; 
         default:
             return 100;
@@ -238,8 +251,16 @@
 -(void)didselectedItemOnIndex:(NSInteger)index {
     
     ItemController *iCtl = [ItemController new];
-    iCtl.navTitle = @"成长计划";
+    NavItemModel *model = self.NavItemArr[index];
+    iCtl.navTitle = model.name;
     [self.navigationController pushViewController:iCtl animated:YES];
+}
+
+#pragma mark HomeHearViewDelegate
+
+-(void)didSelectedContectUs:(UIView *)view {
+    ContactUSController *contect = [ContactUSController new];
+    [self.navigationController pushViewController:contect animated:YES];
 }
 
 #pragma mark 懒加载

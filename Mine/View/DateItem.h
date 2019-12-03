@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SginModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DateItem : UIView
-
+-(void)refreshUIWithSignMode:(SginModel*)model;
 @end
 
 NS_ASSUME_NONNULL_END

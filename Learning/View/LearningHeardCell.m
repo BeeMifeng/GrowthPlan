@@ -13,6 +13,8 @@
 @property(nonatomic,strong)UIView *wrapper;
 
 @property(nonatomic,strong)UILabel *grade;
+
+@property(nonatomic,strong)NSMutableArray *btnArr;
 @end
 
 @implementation LearningHeardCell
@@ -33,6 +35,7 @@
 
 -(void)setup {
      //grade
+    _btnArr = [NSMutableArray new];
     self.wrapper = [[UIView alloc] initWithFrame:CGRectMake(20, 100, screenWidth - 40, 41)];
     [self addSubview:self.wrapper];
     CAGradientLayer *graderLayer =  [GPGradient setGradualChangingColor:self.wrapper fromColor:0x356DFF toColor:0x6891FF];
@@ -114,6 +117,11 @@
 }
 
 -(void)createBtn:(NSArray*)btnArr {
+
+    for (UIButton *btn in self.btnArr) {
+        [btn removeFromSuperview];
+    }
+    
     NSMutableArray *dataArr = [btnArr mutableCopy];
     [dataArr addObject:@"更多"];
     CGFloat marging = 0;
@@ -136,6 +144,7 @@
         [btn setTitleColor:[UIColor GPTextThePaperColor] forState:UIControlStateNormal];
         [btn setTitle:dataArr[j] forState:UIControlStateNormal];
         [self addSubview:btn];
+        [self.btnArr addObject:btn];
         
         btn.backgroundColor = [UIColor whiteColor];
         btn.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -152,6 +161,7 @@
     
 }
 -(void)refreshData:(NSArray*)disciplineArr and:(NSString*)currentGrade {
+    if ([disciplineArr.firstObject isKindOfClass:[NSNull class]]) {return;}
     [self createBtn:disciplineArr];
     self.grade.text = currentGrade;
 }

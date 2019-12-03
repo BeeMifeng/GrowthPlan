@@ -8,6 +8,8 @@
 
 #import "PlanHeardCell.h"
 #import "TableItemView.h"
+#import "MCFileManager.h"
+#import "GPNSdate.h"
 @interface PlanHeardCell()
 @property(nonatomic,strong)UILabel *dream;
 @property(nonatomic,strong)UILabel *personData;
@@ -69,10 +71,19 @@
         make.left.mas_equalTo(0);
         make.height.mas_equalTo(50);
     }];
+    NSDictionary *userCatchDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
+    [view1 setLeftImg:@"dream" andRightImg:@"" andKey:@"宝贝梦想" andValue:userCatchDic[@"baby"][@"profession"]];
+    NSInteger i = (NSInteger)userCatchDic[@"baby"][@"sex"];
+    NSString *sex =  i == 0 ? @"男":@"女";
+    NSString *grade = userCatchDic[@"baby"][@"className"];
+    NSNumber *year = userCatchDic[@"baby"][@"birthday"];
+
+    NSInteger birthYear = [[[year stringValue] substringToIndex:4] integerValue];
+    NSInteger currectYear = [[GPNSdate getCurretYear] integerValue];
+    NSInteger old =  currectYear - birthYear + 1;
     
-    [view1 setLeftImg:@"dream" andRightImg:@"change" andKey:@"宝贝梦想" andValue:@"公务员"];
-    [view2 setLeftImg:@"info" andRightImg:@"" andKey:@"宝贝信息" andValue:@"女生 20岁 大一"];
-    [view3 setLeftImg:@"date" andRightImg:@"" andKey:@"日程计划" andValue:@"公务员"];
+    [view2 setLeftImg:@"info" andRightImg:@"" andKey:@"宝贝信息" andValue:[NSString stringWithFormat:@"%@ %@  %li岁",grade,sex,(long)old]];
+    [view3 setLeftImg:@"date" andRightImg:@"" andKey:@"日程计划" andValue:@""];
     
     wrapper.backgroundColor = [UIColor whiteColor];
     wrapper.layer.cornerRadius = 17;//圆角

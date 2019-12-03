@@ -47,6 +47,16 @@
     }];
     
     self.backgroundColor = [UIColor whiteColor];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(conectUsAction:)];
+    [self.customerServer addGestureRecognizer:tap];
+}
+
+
+-(void)conectUsAction:(UITapGestureRecognizer*)tap {
+    if (_delegate && [_delegate respondsToSelector:@selector(didSelectedContectUs:)]) {
+        [_delegate didSelectedContectUs:tap.view];
+    }
 }
 
 @end

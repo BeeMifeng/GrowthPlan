@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *createTime;
 @property(nonatomic,copy)NSString *updateTime;
 
-@property(nonatomic,strong)NSArray<CommentModel*>*Comments;
+@property(nonatomic,strong)NSArray *Comments;
 @end
 
 NS_ASSUME_NONNULL_END

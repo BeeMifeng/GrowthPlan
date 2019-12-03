@@ -154,15 +154,16 @@
         [SVProgressHUD showWithStatus:@"登录中…"];
         [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@",gp_address_app,gp_verify_login] andMethod:POST andParams:@{@"mobile":self.phoneNum.GPtext,@"verify":self.codeNum.GPtext} andSuccessCallBack:^(id  _Nonnull responseObject) {
             
-            if ([[responseObject[@"code"]  stringValue] isEqualToString:@"0"]) {
+            if ([responseObject[@"code"]  isEqualToString:@"0"]) {
                 [SVProgressHUD showSuccessWithStatus:@"成功登录"];
                 [SVProgressHUD dismissWithDelay:2.0];
                 //登录成功,写入缓存
                 [MCFileManager saveDictionary:responseObject[@"data"] isPlistFileOfPath:gp_user_info];
                 //根据返回的信息判断是否进入信息填写专栏
-                if ([[responseObject[@"data"][@"user"][@"infoStatus"] stringValue] isEqualToString:@"0"]) {
+                if ([[responseObject[@"data"][@"user"][@"infoStatus"] stringValue] isEqualToString:@"1"]) {
                     //未填写信息,调出填写信息页面
                     InfoViewController *infoCtl = [InfoViewController new];
+                    infoCtl.modalPresentationStyle = UIModalPresentationFullScreen;
                     infoCtl.caller = @"SMSLoginController";
                     [self presentViewController:infoCtl animated:YES completion:^{
                         
@@ -171,6 +172,7 @@
                 }else{
                     //已经填写信息,直接进入主页
                     GPBarController *gCtl = [[GPBarController alloc]init];
+                    gCtl.modalPresentationStyle = UIModalPresentationFullScreen;
                     [self presentViewController:gCtl animated:YES completion:^{
                         
                     }];

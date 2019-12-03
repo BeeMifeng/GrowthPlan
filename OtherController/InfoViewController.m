@@ -194,6 +194,7 @@
                 [MCFileManager saveDictionary:responseObject[@"data"] isPlistFileOfPath:gp_user_info];
                 //进入主页
                 GPBarController *gCtl = [[GPBarController alloc]init];
+                gCtl.modalPresentationStyle = UIModalPresentationFullScreen;
                 [self presentViewController:gCtl animated:YES completion:^{
                     
                 }];
@@ -214,9 +215,12 @@
     if ([self.caller isEqualToString:@"SMSLoginController"]) {
         //进入主页
         GPBarController *gCtl = [[GPBarController alloc]init];
+        gCtl.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:gCtl animated:YES completion:^{
             
         }];
+    }else {
+        [self.navigationController popViewControllerAnimated:false];
     }
     
 }
@@ -283,4 +287,11 @@
         self.babyGrade.text = string;
     }
 }
+
+//更换头像
+- (IBAction)changePhoto:(id)sender {
+    
+    
+}
+
 @end

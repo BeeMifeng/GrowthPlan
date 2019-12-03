@@ -100,6 +100,10 @@
     }
 }
 
+-(void)refreshUI:(PlanModel*)model {
+    self.matterLabel.text = model.content;
+    self.dateLabel.text = model.planMonth;
+}
 
 -(NSMutableArray *)cellbackgroundColor {
     if (_cellbackgroundColor == nil) {

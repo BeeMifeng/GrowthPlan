@@ -10,11 +10,17 @@
 #import "GPGradient.h"
 #import "PlanHeardCell.h"
 #import "TableCell.h"
+
+#import "NetWorkManager.h"
+#import "MCFileManager.h"
+#import "PlanModel.h"
+
+
 @interface PlanController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIButton *payBtn;
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIView *sectionOneHeard;
-
+@property(nonatomic,strong)NSMutableArray *planArr;
 
 @end
 
@@ -22,8 +28,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    _planArr = [NSMutableArray new];
+    
     [self setupUI];
+    
+    [self setupData];
 }
 
 -(void)setupUI {
@@ -55,7 +65,7 @@
     
 
     
-    [self.payBtn setTitle:@"付费定制专属成长计划" forState:UIControlStateNormal];
+    [self.payBtn setTitle:@"定制专属成长计划" forState:UIControlStateNormal];
     [self.payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.payBtn.layer.cornerRadius = 6;
     self.payBtn.clipsToBounds = YES;
@@ -70,6 +80,22 @@
     [self.payBtn bringSubviewToFront:self.payBtn.titleLabel];
 }
 
+#pragma mark 网络请求
+-(void)setupData {
+    //学科数据
+    NSDictionary *userCatchDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
+    [[NetWorkManager shareNetWorkManager]requestDataWithUrl:[NSString stringWithFormat:@"%@%@/%@",gp_address_app,gp_plan_profession,userCatchDic[@"baby"][@"id"]] andMethod:GET andParams:@{@"":@""} andSuccessCallBack:^(id  _Nonnull responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
+           for (NSDictionary *dic in responseObject[@"data"]) {
+               PlanModel *model = [PlanModel yy_modelWithDictionary:dic];
+               [self.planArr addObject:model];
+           }
+            [self.tableView reloadData];
+        }
+    } andFailCallBack:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+    }];
+    
+}
 
 #pragma mark tableView delegate
 
@@ -77,7 +103,7 @@
     if (section == 0) {
         return 1;
     }
-    return 10;
+    return self.planArr.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -94,6 +120,7 @@
         TableCell *tCell = [tableView dequeueReusableCellWithIdentifier:@"TableCell"];
         tCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [tCell refreshBackColor:indexPath.row];
+        [tCell refreshUI:self.planArr[indexPath.row]];
         return tCell;
         
     }

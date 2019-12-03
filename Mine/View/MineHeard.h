@@ -10,7 +10,8 @@
 
 @protocol MineHeardDelegate <NSObject>
 
--(void)didTouchHearView:(UIImageView*)heardView;
+-(void)didTouchHearView:(UIImageView*_Nullable)heardView;
+-(void)didTouchEditView:(UIView*_Nullable)view;
 
 @end
 

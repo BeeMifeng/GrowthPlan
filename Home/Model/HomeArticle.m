@@ -9,10 +9,19 @@
 #import "HomeArticle.h"
 
 @implementation HomeArticle
+
+-(instancetype)init {
+   self = [super init];
+    if (self) {
+        _Comments = [NSArray new];
+    }
+    return self;
+}
+
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{
              @"Articelid":@"id",
-             @"Comments":@"navigationArticleCommentViewList"
+             @"Comments":@"navigationArticleCommentVOList"
              };
 }
 
