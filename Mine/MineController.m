@@ -18,7 +18,7 @@
 #import "LoginController.h"
 #import "AboutController.h"
 #import "ContactUSController.h"
-#import "InfoViewController.h"
+#import "InfoController.h"
 #import "BillController.h"
 #import "NetWorkManager.h"
 @interface MineController ()<UITableViewDelegate,UITableViewDataSource,MineHeardDelegate>
@@ -153,9 +153,8 @@
 }
 
 -(void)didTouchEditView:(UIView *)view {
-    InfoViewController *infoCtl = [InfoViewController new];
-    infoCtl.caller = @"MineController";
-    [self.navigationController pushViewController:infoCtl animated:YES];
+//    InfoController *infoCtl = [InfoController new];
+//    [self.navigationController pushViewController:infoCtl animated:YES];
 }
 
 
@@ -166,16 +165,9 @@
     [alterCtl addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //删除缓存回到登录页面
         if([MCFileManager removeAllFromFilePath:gp_user_info]){
-            UINavigationController *nav = (UINavigationController*)[UIApplication sharedApplication].delegate.window.rootViewController;
-            if([NSStringFromClass([nav.viewControllers.firstObject class]) isEqualToString:@"GPBarController"]){
-                //未经过登录控制器直接登录的
-                [UIApplication sharedApplication].delegate.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[LoginController new]];
-            }else{
-                //登录界面，登录进去的
-                [self.parentViewController dismissViewControllerAnimated:YES completion:^{
-
-                }];
-            }
+            LoginController *lCtl = [LoginController new];
+            lCtl.caller = @"logOut";
+            [UIApplication sharedApplication].delegate.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:lCtl];
         }
     }]];
 

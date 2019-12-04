@@ -17,6 +17,7 @@
 #import "GrowthPlanCatch.h"
 #import "GPBarController.h"
 #import "MCFileManager.h"
+#import "GPBarController.h"
 @interface LoginController ()
 @property(nonatomic,strong)UIButton *loginBtn;
 @property(nonatomic,strong)GPlabelView *phoneNum;
@@ -55,6 +56,8 @@
     
     UIButton *forgotPsw = [UIButton buttonWithType:UIButtonTypeCustom];
     
+    UIButton *refuseLogin = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     [self.view addSubview:logoImageView];
     
     [self.view addSubview:self.phoneNum];
@@ -66,6 +69,8 @@
     [self.view addSubview:smsLogin];
     
     [self.view addSubview:forgotPsw];
+    
+    [self.view addSubview:refuseLogin];
     
     [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(100);
@@ -109,6 +114,12 @@
         make.height.mas_equalTo(20);
     }];
 
+    [refuseLogin mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(40);
+        make.right.mas_equalTo(-40);
+        make.bottom.mas_equalTo(-60);
+        make.height.mas_equalTo(30);
+    }];
     
     
     logoImageView.image = [UIImage imageNamed:@"logo"];
@@ -129,6 +140,10 @@
     [forgotPsw setTitle:@"忘记密码" forState:UIControlStateNormal];
     [forgotPsw setTitleColor:[UIColor colorFromHex:0x5A87FF alpha:1.0] forState:UIControlStateNormal];
     forgotPsw.titleLabel.font = [UIFont systemFontOfSize:13];
+
+    [refuseLogin setTitle:@"暂不登录" forState:UIControlStateNormal];
+    [refuseLogin setTitleColor:[UIColor colorFromHex:0x666666 alpha:1.0] forState:UIControlStateNormal];
+    refuseLogin.titleLabel.font = [UIFont systemFontOfSize:13];
     
     //事件
     [self.loginBtn addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -136,6 +151,12 @@
     [smsLogin addTarget:self action:@selector(smsLoginAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [forgotPsw addTarget:self action:@selector(forgotPswAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [refuseLogin addTarget:self action:@selector(refuseLoginAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([self.caller isEqualToString:@"logOut"]) {
+        refuseLogin.hidden = YES;
+    }
 }
 
 
@@ -170,6 +191,9 @@
 
 -(void)smsLoginAction:(UIButton*)btn {
     SMSLoginController *smsCtl = [SMSLoginController new];
+    if ([self.caller isEqualToString:@"logOut"]) {
+        smsCtl.caller = @"logOut";
+    }
     [self.navigationController pushViewController:smsCtl animated:YES];
 }
 
@@ -178,4 +202,9 @@
     [self.navigationController pushViewController:forCtl animated:YES];
 }
 
+-(void)refuseLoginAction:(UIButton*)btn{
+    GPBarController *bCrl = self.navigationController.viewControllers.firstObject;
+    bCrl.selectedIndex = 0;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 @end

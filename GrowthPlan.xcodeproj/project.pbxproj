@@ -67,6 +67,9 @@
 		514350402390BC300067DCFB /* ContactUSController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5143503F2390BC300067DCFB /* ContactUSController.m */; };
 		514350432390FF430067DCFB /* BillController.m in Sources */ = {isa = PBXBuildFile; fileRef = 514350422390FF430067DCFB /* BillController.m */; };
 		514350462391030A0067DCFB /* BillViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 514350452391030A0067DCFB /* BillViewCell.m */; };
+		5190E8DE23973F5100034B8C /* CommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5190E8DD23973F5100034B8C /* CommentView.m */; };
+		5190E8E223978A0B00034B8C /* GPUserCatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5190E8E123978A0B00034B8C /* GPUserCatch.m */; };
+		5190E8E523979FF800034B8C /* InfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5190E8E423979FF800034B8C /* InfoController.m */; };
 		51D4CEAC2395EAF000298A51 /* PlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D4CEAB2395EAF000298A51 /* PlanModel.m */; };
 		51D4CEAF2395FBC500298A51 /* SginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D4CEAE2395FBC500298A51 /* SginModel.m */; };
 		51D4CEB223960D1000298A51 /* BillModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D4CEB123960D1000298A51 /* BillModel.m */; };
@@ -189,6 +192,12 @@
 		514350422390FF430067DCFB /* BillController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillController.m; sourceTree = "<group>"; };
 		514350442391030A0067DCFB /* BillViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillViewCell.h; sourceTree = "<group>"; };
 		514350452391030A0067DCFB /* BillViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillViewCell.m; sourceTree = "<group>"; };
+		5190E8DC23973F5100034B8C /* CommentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentView.h; sourceTree = "<group>"; };
+		5190E8DD23973F5100034B8C /* CommentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentView.m; sourceTree = "<group>"; };
+		5190E8E023978A0B00034B8C /* GPUserCatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUserCatch.h; sourceTree = "<group>"; };
+		5190E8E123978A0B00034B8C /* GPUserCatch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUserCatch.m; sourceTree = "<group>"; };
+		5190E8E323979FF800034B8C /* InfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoController.h; sourceTree = "<group>"; };
+		5190E8E423979FF800034B8C /* InfoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoController.m; sourceTree = "<group>"; };
 		51D4CEAA2395EAF000298A51 /* PlanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlanModel.h; sourceTree = "<group>"; };
 		51D4CEAB2395EAF000298A51 /* PlanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlanModel.m; sourceTree = "<group>"; };
 		51D4CEAD2395FBC500298A51 /* SginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SginModel.h; sourceTree = "<group>"; };
@@ -268,6 +277,8 @@
 				215D4D9521D5F30200B23966 /* ListViewCell.m */,
 				51034F702394955900FA1539 /* NavListCell.h */,
 				51034F712394955900FA1539 /* NavListCell.m */,
+				5190E8DC23973F5100034B8C /* CommentView.h */,
+				5190E8DD23973F5100034B8C /* CommentView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,6 +333,7 @@
 		21ED1AFA21D34F4100A4BF07 = {
 			isa = PBXGroup;
 			children = (
+				5190E8DF239789E800034B8C /* Catch */,
 				510FBD352255E366004DD3F8 /* UIfactory */,
 				51060A7F22547EC000D8DC9A /* OtherController */,
 				510D1B1C225333CE00C0367D /* NetWork */,
@@ -477,6 +489,8 @@
 				51060A8022547EF800D8DC9A /* InfoViewController.h */,
 				51060A8122547EF800D8DC9A /* InfoViewController.m */,
 				51060A83225482F200D8DC9A /* InfoViewController.xib */,
+				5190E8E323979FF800034B8C /* InfoController.h */,
+				5190E8E423979FF800034B8C /* InfoController.m */,
 			);
 			path = OtherController;
 			sourceTree = "<group>";
@@ -527,6 +541,15 @@
 				510FBD372255E3B6004DD3F8 /* GPUIPickView.m */,
 			);
 			path = UIfactory;
+			sourceTree = "<group>";
+		};
+		5190E8DF239789E800034B8C /* Catch */ = {
+			isa = PBXGroup;
+			children = (
+				5190E8E023978A0B00034B8C /* GPUserCatch.h */,
+				5190E8E123978A0B00034B8C /* GPUserCatch.m */,
+			);
+			path = Catch;
 			sourceTree = "<group>";
 		};
 		51D4CEA92395E93A00298A51 /* Model */ = {
@@ -655,6 +678,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21140B1921D75C160056C30E /* TableItemView.m in Sources */,
+				5190E8E223978A0B00034B8C /* GPUserCatch.m in Sources */,
 				2116572C21EDC749006A6F0F /* ForgotPswController.m in Sources */,
 				215D4D9E21D60F9A00B23966 /* LearningHeardCell.m in Sources */,
 				215D4D9621D5F30200B23966 /* ListViewCell.m in Sources */,
@@ -669,7 +693,9 @@
 				215D4D9021D5C7FA00B23966 /* ItemViewCell.m in Sources */,
 				51034F782394F92100FA1539 /* KnowledgeModel.m in Sources */,
 				21ED1B2621D35DE500A4BF07 /* GPBarController.m in Sources */,
+				5190E8DE23973F5100034B8C /* CommentView.m in Sources */,
 				21ED1B3221D36E2100A4BF07 /* LearningController.m in Sources */,
+				5190E8E523979FF800034B8C /* InfoController.m in Sources */,
 				5143503D2390A2290067DCFB /* AboutController.m in Sources */,
 				215D4DA121D6232800B23966 /* GPGradient.m in Sources */,
 				51D4CEB223960D1000298A51 /* BillModel.m in Sources */,

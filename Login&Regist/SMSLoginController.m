@@ -56,6 +56,8 @@
     
     UIButton *pswLogin = [UIButton buttonWithType:UIButtonTypeCustom];
     
+    UIButton *refuseLogin = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     self.codeLabel = [UILabel new];
     
     
@@ -70,6 +72,8 @@
     [self.view addSubview:pswLogin];
     
     [self.codeNum addSubview:self.codeLabel];
+    
+    [self.view addSubview:refuseLogin];
     
     [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(navHeight + 50);
@@ -113,6 +117,14 @@
         make.height.mas_equalTo(40);
     }];
     
+    [refuseLogin mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(40);
+        make.right.mas_equalTo(-40);
+        make.bottom.mas_equalTo(-60);
+        make.height.mas_equalTo(30);
+    }];
+    
+    
     logoImageView.image = [UIImage imageNamed:@"logo"];
 
     [self.loginBtn setTitle:@"确定" forState:UIControlStateNormal];
@@ -139,6 +151,10 @@
     self.phoneNum.GPtext = @"15308483190";
     self.codeNum.GPtext = @"123456";
     
+    [refuseLogin setTitle:@"暂不登录" forState:UIControlStateNormal];
+    [refuseLogin setTitleColor:[UIColor colorFromHex:0x666666 alpha:1.0] forState:UIControlStateNormal];
+    refuseLogin.titleLabel.font = [UIFont systemFontOfSize:13];
+    
     //事件
     [self.loginBtn addTarget:self action:@selector(sureAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -146,6 +162,12 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(takeCodeAction:)];
     [self.codeLabel addGestureRecognizer:tap];
+    
+    [refuseLogin addTarget:self action:@selector(refuseLoginAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([self.caller isEqualToString:@"logOut"]) {
+           refuseLogin.hidden = YES;
+    }
 }
 
 
@@ -160,7 +182,7 @@
                 //登录成功,写入缓存
                 [MCFileManager saveDictionary:responseObject[@"data"] isPlistFileOfPath:gp_user_info];
                 //根据返回的信息判断是否进入信息填写专栏
-                if ([[responseObject[@"data"][@"user"][@"infoStatus"] stringValue] isEqualToString:@"1"]) {
+                if ([[responseObject[@"data"][@"user"][@"infoStatus"] stringValue] isEqualToString:@"0"]) {
                     //未填写信息,调出填写信息页面
                     InfoViewController *infoCtl = [InfoViewController new];
                     infoCtl.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -170,12 +192,18 @@
                     }];
                     
                 }else{
-                    //已经填写信息,直接进入主页
-                    GPBarController *gCtl = [[GPBarController alloc]init];
-                    gCtl.modalPresentationStyle = UIModalPresentationFullScreen;
-                    [self presentViewController:gCtl animated:YES completion:^{
-                        
-                    }];
+                    
+                    if ([self.caller isEqualToString:@"logOut"]) {
+                      //已经填写信息,直接进入主页
+                      GPBarController *gCtl = [[GPBarController alloc]init];
+                      gCtl.modalPresentationStyle = UIModalPresentationFullScreen;
+                      [self presentViewController:gCtl animated:YES completion:^{
+                          
+                      }];
+                    }else {
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                    
                 }
             }else
             {
@@ -196,6 +224,12 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+-(void)refuseLoginAction:(UIButton*)btn{
+    GPBarController *bCrl = self.navigationController.viewControllers.firstObject;
+    bCrl.selectedIndex = 0;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 -(void)takeCodeAction:(UITapGestureRecognizer*)tap {
     

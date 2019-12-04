@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SMSLoginController : UIViewController
-
+@property(nonatomic,copy)NSString *caller;
 @end
 
 NS_ASSUME_NONNULL_END

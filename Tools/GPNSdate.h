@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GPNSdate : NSObject
 +(NSString*)getCurretYear;
+
+
+//计算字符串高度
++ (CGFloat)getStringHeightWithText:(NSString *)text font:(UIFont *)font viewWidth:(CGFloat)width;
 @end
 
 NS_ASSUME_NONNULL_END

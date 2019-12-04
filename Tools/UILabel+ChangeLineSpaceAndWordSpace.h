@@ -25,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  改变行间距和字间距
  */
 + (void)changeSpaceForLabel:(UILabel *)label withLineSpace:(float)lineSpace WordSpace:(float)wordSpace;
+
+/**
+ *  首行缩进
+ */
+
++ (NSAttributedString *)setLabelIndent:(CGFloat)indent text:(NSString *)text andLabel:(UILabel*)label;
 @end
 
 NS_ASSUME_NONNULL_END

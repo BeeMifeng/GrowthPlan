@@ -43,4 +43,14 @@
     [label sizeToFit];
     
 }
+
+
++ (NSAttributedString *)setLabelIndent:(CGFloat)indent text:(NSString *)text andLabel:(UILabel*)label{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+       paragraphStyle.firstLineHeadIndent = indent * 3;
+    paragraphStyle.lineSpacing = 5-(label.font.lineHeight - label.font.pointSize);
+       NSDictionary *attributeDic = @{NSParagraphStyleAttributeName : paragraphStyle,NSKernAttributeName:@1.0};
+       NSAttributedString *attrText = [[NSAttributedString alloc] initWithString:text attributes:attributeDic];
+       return attrText;
+}
 @end

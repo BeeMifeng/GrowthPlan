@@ -13,7 +13,8 @@
 #import "PlanController.h"
 #import "MineController.h"
 #import "UIColor+Hex.h"
-@interface GPBarController ()
+#import "LoginController.h"
+@interface GPBarController ()<UITabBarDelegate>
 
 @end
 
@@ -26,6 +27,7 @@
 
 
 -(void)setUp {
+    
     
     self.tabBar.tintColor = [UIColor GPBarTitleColor];
   
@@ -53,5 +55,16 @@
     childController.tabBarItem.selectedImage = imageSelected;
     
     [self addChildViewController:childController];
+}
+
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    if (![item.title isEqualToString:@"首页"]) {
+        //判断是否登录
+        if (![GPUserCatch isLogin]) {
+            LoginController *loginCtl = [LoginController new];  
+            loginCtl.modalPresentationStyle = UIModalPresentationFullScreen;
+            [self.navigationController pushViewController:loginCtl animated:YES];
+        }
+    }
 }
 @end

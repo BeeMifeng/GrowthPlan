@@ -95,8 +95,7 @@
     
     
     //文章列表
-    NSDictionary *userDic = [MCFileManager dictionaryInPlistFileOfPath:gp_user_info];
-    [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@%li",gp_address_app,gp_home_articl,self.pageNum] andMethod:POST andParams:@{@"userId":userDic[@"user"][@"id"]} andSuccessCallBack:^(id  _Nonnull responseObject) {
+    [[NetWorkManager shareNetWorkManager] requestDataWithUrl:[NSString stringWithFormat:@"%@%@%li",gp_address_app,gp_home_articl,self.pageNum] andMethod:POST andParams:@{@"userId":[GPUserCatch getBodyId]} andSuccessCallBack:^(id  _Nonnull responseObject) {
         if ([responseObject[@"code"]  isEqualToString:@"0"]) {
             if (self.pageNum == 1) {
                 [self.tabbleArr removeAllObjects];

@@ -29,16 +29,9 @@
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     //监测网络环境
     [[NetWorkManager shareNetWorkManager]startMonitoring];
-    
-    NSLog(@"%@",[MCFileManager cacheDirectory]);
-    
-    //判断缓存，有直接进首页。没有进登录页面
-    if ([MCFileManager dictionaryInPlistFileOfPath:gp_user_info]) {
-        self.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[GPBarController new]];
-    }else
-    {
-      self.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[LoginController new]];
-    }
+        
+    self.window.rootViewController = [[GPNaviController alloc] initWithRootViewController:[GPBarController new]];
+
     IQKeyboardManager *keyboardManager = [IQKeyboardManager sharedManager]; // 获取类库的单例变量
     
     keyboardManager.enable = YES; // 控制整个功能是否启用
